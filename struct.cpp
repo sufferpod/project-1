@@ -7,3 +7,4 @@ public:
     FourChoice(string, string, string, string, string) private : string A, B, C, D;
     char answer;
 };
+#ww
