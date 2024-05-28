@@ -3,5 +3,4 @@ using namespace std;
 
 Question:class Descriptive
 {
-    
-}
+};
