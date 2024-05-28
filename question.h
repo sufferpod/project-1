@@ -20,3 +20,4 @@ protected:
     User user;
     bool isPublished = false;
 };
+#e
