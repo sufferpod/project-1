@@ -1,13 +1,152 @@
-#pragma once
 #include <iostream>
 #include <cstdlib>
-#include "question.h"
-#include "permission.h"
 
 Permission *globalPermission[4] = {new permission("add-descriptive-question"), new permission("add-four-choice-question"),
                                    new permission("edit-descriptive-question"), new permission("edit-four-choice-question"),
                                    new permission("add-user")};
 
+struct DateTime
+{
+    int year, month, day, hour, minute, second;
+};
+
+class User
+{
+private:
+    string name, username, password;
+    Permission *permissions[100] = {NULL};
+
+public:
+    User(string n, string un, string pa) : name(n), username(un), password(pa) {}
+    static User *create(string n, string un, string pa)
+    {
+        return new User(n, un, pa);
+    }
+};
+
+class Tag
+{
+private:
+    string title;
+
+public:
+    Tag(string ti) : title(ti) {}
+    static Tag *create(string ti)
+    {
+        return new Tag(ti);
+    }
+};
+
+class Question
+{
+private:
+public:
+    Question(string Qu, string ty, DateTime ti, User us) : question(Qu), type(ty), createdAt(ti), user(us) {}
+    void publish() { isPublished = true; }
+    void unpublish() { isPublished = false; }
+    virtual void print() = 0;
+    virtual void printAll() = 0;
+    void addTag(Tag *);
+
+protected:
+    string question;
+    string type;
+    DateTime createdAt;
+    User user;
+    Tag *tags[100] = {NULL};
+    bool isPublished = false;
+};
+
+void Question::addTag(Tag *tag)
+{
+    int i = 0;
+    for (; tags[i] != NULL; i++)
+    {
+        ;
+    }
+    tags[i] = tag;
+}
+
+class FourChoice : public Question
+{
+public:
+    void printAll();
+    FourChoice(string Qu, DateTime ti, User us, string A, string B, string C, string D, char answer) : Question(Qu, "FourChoice", ti, us), A(A), B(B), C(C), D(D), answer(answer) {}
+    void print()
+    {
+
+        cout << "A) " << A << endl
+             << "B) " << B << endl
+             << "C) " << C << endl
+             << "D) " << D << endl;
+    }
+    FourChoice *edit(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer);
+    static FourChoice *create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer);
+
+private:
+    string A, B, C, D;
+    char answer;
+};
+
+FourChoice *FourChoice::edit(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
+{
+    this->A = A;
+    this->B = B;
+    this->C = C;
+    this->D = D;
+    this->answer = answer;
+    return new FourChoice(question, createdAt, user, A, B, C, D, answer);
+}
+static FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
+{
+    FourChoice x(question, createdAt, user, A, B, C, D, answer);
+    return &x;
+}
+
+class Descriptive : public Question
+{
+public:
+    Descriptive(string qu, DateTime cr, User us) : Question(qu, "Descriptive", cr, us) {}
+    void AddAnswer() { this->answer = answer; }
+    void print() {}
+    void printAll() {}
+    static Descriptive *create(string question, DateTime createdAt, User user)
+    {
+        Descriptive x(question, createdAt, user);
+        return &x;
+    }
+    Descriptive *edit(string question, DateTime createdAt, User user)
+    {
+        this->question = question;
+        this->createdAt = createdAt;
+        this->user = user;
+        return new Descriptive(question, createdAt, user);
+    }
+
+private:
+    string answer;
+};
+
+class Permission
+{
+private:
+    string title;
+
+public:
+    Permission(string per) : title(per) {}
+    static Permission *create(string ti)
+    {
+        return new Permission(ti);
+    }
+    void print()
+    {
+        cout << title << endl;
+    }
+    string viewTitle()
+    {
+        return title;
+    }
+};
 using namespace std;
 void stub();
 void login();
