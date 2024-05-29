@@ -7,10 +7,7 @@ class Question
 {
 private:
 public:
-    Question(string Qu, string ty, DateTime ti) : question(Qu), type(ty), createdAt(ti)
-    {
-        // user;
-    }
+    Question(string Qu, string ty, DateTime ti, User us) : question(Qu), type(ty), createdAt(ti), user(us) {}
     void publish() { isPublished = true; }
     void unpublish() { isPublished = false; }
     virtual void print() = 0;
