@@ -16,27 +16,25 @@ public:
              << "C) " << C << endl
              << "D) " << D << endl;
     }
-    FourChoice *edit(string question, DateTime creatAt, User user, string A, string B, string C, string D, char answer);
-    FourChoice *create(string question, DateTime creatAt, User user, string A, string B, string C, string D, char answer);
+     FourChoice  *edit(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer);
+    static FourChoice  *create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer);
 
 private:
     string A, B, C, D;
     char answer;
 };
 
-FourChoice *FourChoice::edit(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
+ FourChoice *FourChoice::edit(string question, DateTime createdAt , User user, string A, string B, string C, string D, char answer)
 {
-    this->question = question;
-    this->createdAt = createdAt;
-    this->user = user;
     this->A = A;
     this->B = B;
     this->C = C;
     this->D = D;
     this->answer = answer;
     return new FourChoice(question, createdAt, user, A, B, C, D, answer);
+    
 }
-FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
+static FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
 {
     FourChoice x(question, createdAt, user, A, B, C, D, answer);
     return &x;
