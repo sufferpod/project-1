@@ -6,6 +6,7 @@ using namespace std;
 class FourChoice : public Question
 {
 public:
+    void printAll();
     FourChoice(string Qu, DateTime ti, User us, string A, string B, string C, string D, char answer) : Question(Qu, "FourChoice", ti, us), A(A), B(B), C(C), D(D), answer(answer) { user = }
     void print()
     {
@@ -16,6 +17,7 @@ public:
              << "D) " << D << endl;
     }
     FourChoice *edit(string question, DateTime creatAt, User user, string A, string B, string C, string D, char answer);
+    FourChoice *create(string question, DateTime creatAt, User user, string A, string B, string C, string D, char answer);
 
 private:
     string A, B, C, D;
@@ -33,4 +35,9 @@ FourChoice *FourChoice::edit(string question, DateTime createdAt, User user, str
     this->D = D;
     this->answer = answer;
     return new FourChoice(question, createdAt, user, A, B, C, D, answer);
+}
+FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
+{
+    FourChoice x(question, createdAt, user, A, B, C, D, answer);
+    return &x;
 }
