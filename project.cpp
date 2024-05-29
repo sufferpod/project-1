@@ -2,14 +2,6 @@
 #include <cstdlib>
 using namespace std;
 
-User *users[100] = {NULL};
-User admin("admin", "admin", "123456");
-Permission *permissions[100] = {new permission("add-descriptive-question"), new permission("add-four-choice-question"),
-                                new permission("edit-descriptive-question"), new permission("edit-four-choice-question"),
-                                new permission("add-user"), NULL};
-Question *questions[100] = {NULL};
-Tag *tags[100] = {NULL};
-
 struct DateTime
 {
     int year, month, day, hour, minute, second;
@@ -43,18 +35,8 @@ private:
     Permission *permissions[100] = {NULL};
 
 public:
+    static User *create(string n, string un, string pa);
     User(string n, string un, string pa) : name(n), username(un), password(pa) {}
-    static User *create(string n, string un, string pa)
-    {
-        User *x = new User(n, un, pa);
-        int i = 0;
-        for (; users[i] != NULL; i++)
-        {
-            ;
-        }
-        users[i] = x;
-        return x;
-    }
     void addpermission(Permission *permission)
     {
         int i = 0;
@@ -86,11 +68,22 @@ public:
         return false;
     }
 };
-
+User *users[100] = {NULL};
+User *User::create(string n, string un, string pa)
+{
+    User *x = new User(n, un, pa);
+    int i = 0;
+    for (; users[i] != NULL; i++)
+    {
+        ;
+    }
+    users[i] = x;
+    return x;
+}
 class Auth
 {
 private:
-    static User *auth = NULL;
+    static User *auth;
 
 public:
     static User *login(string username, string password)
@@ -98,12 +91,12 @@ public:
         bool flag = 0;
         for (int i = 0; i < 100; i++)
         {
-            if (users[i].chechAuth(username, password))
+            if (users[i]->checkAuth(username, password))
                 flag = true;
         }
         if (flag)
         {
-            User x = User("current", username, password);
+            User *x = new User("current", username, password);
             return x;
         }
         else
@@ -165,7 +158,7 @@ void Question::addTag(Tag *tag)
 class FourChoice : public Question
 {
 public:
-    void printAll();
+    void printAll() {} // todo
     FourChoice(string Qu, DateTime ti, User us, string A, string B, string C, string D, char answer) : Question(Qu, "FourChoice", ti, us), A(A), B(B), C(C), D(D), answer(answer) {}
     void print()
     {
@@ -192,9 +185,9 @@ FourChoice *FourChoice::edit(string question, DateTime createdAt, User user, str
     this->answer = answer;
     return new FourChoice(question, createdAt, user, A, B, C, D, answer);
 }
-static FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
+FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
 {
-    FourChoice x = new FourChoice(question, createdAt, user, A, B, C, D, answer);
+    FourChoice *x = new FourChoice(question, createdAt, user, A, B, C, D, answer);
     return x;
 }
 
@@ -207,8 +200,8 @@ public:
     void printAll() {}
     static Descriptive *create(string question, DateTime createdAt, User user)
     {
-        Descriptive x(question, createdAt, user);
-        return &x;
+        Descriptive *x = new Descriptive(question, createdAt, user);
+        return x;
     }
     Descriptive *edit(string question, DateTime createdAt, User user)
     {
@@ -229,10 +222,17 @@ void questionMenu();
 void tagMenu();
 void userMenu();
 
+Permission *permissions[100] = {new Permission("add-descriptive-question"), new Permission("add-four-choice-question"),
+                                new Permission("edit-descriptive-question"), new Permission("edit-four-choice-question"),
+                                new Permission("add-user"), NULL};
+
+Question *questions[100] = {NULL};
+Tag *tags[100] = {NULL};
+
 int main()
 {
+    User admin("admin", "admin", "123456");
     char choice;
-
     while (true)
     {
         cout << "* Login(L)" << endl;
@@ -295,3 +295,6 @@ void login()
         system("cls");
     }
 }
+void questionMenu() {}
+void tagMenu() {}
+void userMenu() {}
