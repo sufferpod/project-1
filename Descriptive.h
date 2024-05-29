@@ -5,7 +5,7 @@ using namespace std;
 class Descriptive : public Question
 {
 public:
-    Descriptive(string qu, createdAt cr, User us) : Question(qu, "Descriptive", cr, us) {}
+    Descriptive(string qu, DateTime cr, User us) : Question(qu, "Descriptive", cr, us) {}
     void AddAnswer() { this->answer = answer; }
     void print() {}
     void printAll() {}
