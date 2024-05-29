@@ -1,6 +1,13 @@
 #pragma once
 #include <iostream>
 #include <cstdlib>
+#include "question.h"
+#include "permission.h"
+
+Permission *globalPermission[4] = {new permission("add-descriptive-question"), new permission("add-four-choice-question"),
+                                   new permission("edit-descriptive-question"), new permission("edit-four-choice-question"),
+                                   new permission("add-user")};
+
 using namespace std;
 void stub();
 void login();
