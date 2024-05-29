@@ -1,4 +1,5 @@
 using namespace std;
+#include "permission.h"
 class User
 {
 private:
