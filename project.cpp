@@ -14,19 +14,42 @@ private:
 
 public:
     Permission(string per) : title(per) {}
-    static Permission *create(string ti)
-    {
-        return new Permission(ti);
-    }
-    void print()
-    {
-        cout << title << endl;
-    }
-    string viewTitle()
-    {
-        return title;
-    }
+    static Permission *create(string ti);
+    void print();
+    string viewTitle();
 };
+
+Permission *Gpermissions[100] = {new Permission("add-descriptive-question"), new Permission("add-four-choice-question"),
+                                 new Permission("edit-descriptive-question"), new Permission("edit-four-choice-question"),
+                                 new Permission("add-user"), NULL};
+
+Permission *Permission::create(string ti)
+{
+    Permission *x = new Permission(ti);
+    int i = 0;
+    for (; Gpermissions[i] != NULL; i++)
+    {
+        if (Gpermissions[i]->title == x->title)
+        {
+            break;
+        }
+    }
+    if (Gpermissions[i] == NULL)
+    {
+        Gpermissions[i] = x;
+    }
+    return x;
+}
+
+void Permission::print()
+{
+    cout << title << endl;
+}
+
+string Permission::viewTitle()
+{
+    return title;
+}
 
 class User
 {
@@ -35,83 +58,115 @@ private:
     Permission *permissions[100] = {NULL};
 
 public:
-    static User *create(string n, string un, string pa);
     User(string n, string un, string pa) : name(n), username(un), password(pa) {}
-    void addpermission(Permission *permission)
-    {
-        int i = 0;
-        for (; permissions[i] != NULL; i++)
-        {
-            if (permissions[i]->viewTitle() == permission->viewTitle())
-            {
-                break;
-            }
-        }
-        if (permissions[i] == NULL)
-        {
-            permissions[i] = permission;
-        }
-    }
-    void print()
-    {
-        cout << "Name: " << name
-             << "\nUser name: " << username
-             << "Password: " << password << endl;
-    }
-    bool checkAuth(string un, string pa)
-    {
-        if (username == un)
-        {
-            if (password == pa)
-                return true;
-        }
-        return false;
-    }
+    static User *create(string n, string un, string pa);
+    void addpermission(Permission *permission);
+    void print();
+    bool checkAuth(string un, string pa);
 };
 User *users[100] = {NULL};
 User *User::create(string n, string un, string pa)
 {
     User *x = new User(n, un, pa);
-    int i = 0;
-    for (; users[i] != NULL; i++)
+    bool flag = false;
+    for (int i = 0; x->permissions[i] != NULL; i++)
     {
-        ;
+        if (x->permissions[i]->viewTitle() == "add-user")
+        {
+            flag = true;
+        }
     }
-    users[i] = x;
-    return x;
+    if (flag)
+    {
+        int i = 0;
+        for (; users[i] != NULL; i++)
+        {
+            if (x->username == users[i]->username)
+            {
+                break;
+            }
+        }
+        if (users[i] == NULL)
+        {
+            users[i] = x;
+            return x;
+        }
+    }
+    return NULL;
 }
+
+void User::addpermission(Permission *permission)
+{
+    int i = 0;
+    for (; Gpermissions[i] != NULL; i++)
+    {
+        if (Gpermissions[i]->viewTitle() == permission->viewTitle())
+        {
+            break;
+        }
+    }
+    if (Gpermissions[i] == NULL)
+    {
+        Gpermissions[i] = permission;
+    }
+}
+
+void User::print()
+{
+    cout << "Name: " << name
+         << "\nUser name: " << username
+         << "Password: " << password << endl;
+}
+
+bool User::checkAuth(string un, string pa)
+{
+    if (username == un)
+    {
+        if (password == pa)
+            return true;
+    }
+    return false;
+}
+
 class Auth
 {
 private:
     static User *auth;
 
 public:
-    static User *login(string username, string password)
-    {
-        bool flag = 0;
-        for (int i = 0; i < 100; i++)
-        {
-            if (users[i]->checkAuth(username, password))
-                flag = true;
-        }
-        if (flag)
-        {
-            User *x = new User("current", username, password);
-            return x;
-        }
-        else
-            return NULL;
-    }
-    static void logout()
-    {
-        auth = NULL;
-    }
-    static User *whoami()
-    {
-        return auth;
-    }
+    static User *login(string username, string password);
+    static void logout();
+    static User *whoami();
 };
 
+User *Auth::login(string username, string password)
+{
+    bool flag = 0;
+    for (int i = 0; i < 100; i++)
+    {
+        if (users[i]->checkAuth(username, password))
+            flag = true;
+    }
+    if (flag)
+    {
+        User *x = new User("current", username, password);
+        auth = x;
+        return x;
+    }
+    else
+        return NULL;
+}
+
+void Auth::logout()
+{
+    auth = NULL;
+}
+
+User *Auth::whoami()
+{
+    return auth;
+}
+/// resolve error
 class Tag
 {
 private:
@@ -119,12 +174,39 @@ private:
 
 public:
     Tag(string ti) : title(ti) {}
-    static Tag *create(string ti)
-    {
-        return new Tag(ti);
-    }
+    static Tag *create(string ti);
+    string veiwTitle();
+    void print();
+    void printAll();
 };
 
+Tag *Tag::create(string ti)
+{
+    return new Tag(ti);
+}
+
+string Tag::veiwTitle()
+{
+    return title;
+}
+
+void Tag::print()
+{
+    cout << title << endl;
+}
+
+Tag *tags[100] = {NULL};
+
+void Tag::printAll()
+{
+    cout << " tags: ";
+    for (int i = 0; tags[i] != NULL; i++)
+    {
+        cout << tags[i]->title << ',';
+    }
+    cout << endl;
+}
+// todo
 class Question
 {
 private:
@@ -150,9 +232,11 @@ void Question::addTag(Tag *tag)
     int i = 0;
     for (; tags[i] != NULL; i++)
     {
-        ;
+        if (tags[i]->veiwTitle() == tag->veiwTitle())
+            break;
     }
-    tags[i] = tag;
+    if (tags[i] == NULL)
+        tags[i] = tag;
 }
 
 class FourChoice : public Question
@@ -221,17 +305,15 @@ bool stup();
 void questionMenu();
 void tagMenu();
 void userMenu();
-
-Permission *permissions[100] = {new Permission("add-descriptive-question"), new Permission("add-four-choice-question"),
-                                new Permission("edit-descriptive-question"), new Permission("edit-four-choice-question"),
-                                new Permission("add-user"), NULL};
-
 Question *questions[100] = {NULL};
-Tag *tags[100] = {NULL};
 
 int main()
 {
     User admin("admin", "admin", "123456");
+    for (int i = 0; Gpermissions[i] != NULL; i++)
+    {
+        admin.addpermission(Gpermissions[i]);
+    }
     char choice;
     while (true)
     {
