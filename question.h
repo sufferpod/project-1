@@ -16,6 +16,7 @@ public:
 
 protected:
     string question;
+
     string type;
     DateTime createdAt;
     User user;
