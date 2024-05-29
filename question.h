@@ -7,11 +7,15 @@ class Question
 {
 private:
 public:
-    Question(string Qu, string ty, User us, DateTime ti) : question(Qu), type(ty), createdAt(ti), user(us) {}
+    void stub(string) {}
+    Question(string Qu, string ty, DateTime ti) : question(Qu), type(ty), createdAt(ti), user(us)
+    {
+        user = stub(whoami);
+    }
     void publish() { isPublished = true; }
     void unpublish() { isPublished = false; }
-    virtual void print();
-    virtual void printAll();
+    virtual void print() = 0;
+    virtual void printAll() = 0;
     void addTag(Tag *);
 
 protected:
@@ -19,5 +23,16 @@ protected:
     string type;
     DateTime createdAt;
     User user;
+    Tag *tags[100] = {NULL};
     bool isPublished = false;
 };
+
+void Question::addTag(Tag *tag)
+{
+    int i = 0;
+    for (; Tags[i] != NULL; i++)
+    {
+        ;
+    }
+    tags[i] = tag;
+}
