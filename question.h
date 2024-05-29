@@ -7,10 +7,9 @@ class Question
 {
 private:
 public:
-    void stub(string) {}
-    Question(string Qu, string ty, DateTime ti) : question(Qu), type(ty), createdAt(ti), user(us)
+    Question(string Qu, string ty, DateTime ti) : question(Qu), type(ty), createdAt(ti)
     {
-        user = stub(whoami);
+        // user;
     }
     void publish() { isPublished = true; }
     void unpublish() { isPublished = false; }
@@ -30,7 +29,7 @@ protected:
 void Question::addTag(Tag *tag)
 {
     int i = 0;
-    for (; Tags[i] != NULL; i++)
+    for (; tags[i] != NULL; i++)
     {
         ;
     }
