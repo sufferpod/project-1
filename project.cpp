@@ -59,35 +59,29 @@ private:
 
 public:
     User(string n, string un, string pa) : name(n), username(un), password(pa) {}
-    static User *create(string n, string un, string pa);
+    static User *create(string, string, string, User *);
     void addpermission(Permission *permission);
     void print();
     static void printAll();
-    bool checkAuth(string un, string pa);
+    bool checkAuth(string, string);
     bool checkPermTi(string);
     string myName();
 };
 User *users[100] = {NULL};
-User *User::create(string n, string un, string pa)
+User *User::create(string n, string un, string pa, User *ami)
 {
     User *x = new User(n, un, pa);
-    for (int i = 0; x->permissions[i] != NULL; i++)
+    if (ami->checkPermTi("add-user"))
     {
-        if (x->permissions[i]->viewTitle() == "add-user")
+        int i = 0;
+        for (; users[i] != NULL; i++)
         {
-            int i = 0;
-            for (; users[i] != NULL; i++)
-            {
-                if (x->username == users[i]->username)
-                {
-                    break;
-                }
-            }
-            if (users[i] == NULL)
-            {
-                users[i] = x;
-                return x;
-            }
+            ;
+        }
+        if (!ami->checkAuth(un, pa))
+        {
+            users[i] = x;
+            return x;
         }
     }
     return NULL;
@@ -96,16 +90,17 @@ User *User::create(string n, string un, string pa)
 void User::addpermission(Permission *permission)
 {
     int i = 0;
-    for (; Gpermissions[i] != NULL; i++)
+    for (; permissions[i] != NULL; i++)
     {
-        if (Gpermissions[i]->viewTitle() == permission->viewTitle())
+        if (permissions[i]->viewTitle() == permission->viewTitle())
         {
             break;
         }
     }
-    if (Gpermissions[i] == NULL)
+
+    if (permissions[i] == NULL)
     {
-        Gpermissions[i] = permission;
+        permissions[i] = permission;
     }
 }
 
@@ -113,7 +108,7 @@ void User::print()
 {
     cout << "Name: " << name
          << "\nUser name: " << username
-         << "Password: " << password << endl;
+         << "\nPassword: " << password << endl;
 }
 
 void User::printAll()
@@ -166,20 +161,15 @@ public:
 
 User *Auth::login(string username, string password)
 {
-    int i = 0;
-    for (; users[i] != NULL; i++)
+    for (int i = 0; users[i] != NULL; i++)
     {
         if (users[i]->checkAuth(username, password))
-            break;
+        {
+            auth = users[i];
+            return users[i];
+        }
     }
-    if (users[i] == NULL)
-    {
-        User *x = new User("current", username, password);
-        auth = x;
-        return x;
-    }
-    else
-        return NULL;
+    return NULL;
 }
 
 void Auth::logout()
@@ -230,7 +220,7 @@ void Tag::print()
 
 void Tag::printAll()
 {
-    cout << "tags: ";
+    cout << "tags: \n";
     for (int i = 0; Gtags[i] != NULL; i++)
     {
         cout << "ID: " << i << '=';
@@ -338,6 +328,7 @@ Question *FourChoice::edit(string question, DateTime createdAt, User user, strin
 {
     if (Auth::whoami()->checkPermTi("edit-four-choice-question"))
     {
+        this->question = question;
         this->A = A;
         this->B = B;
         this->C = C;
@@ -462,16 +453,21 @@ void userMenu();
 
 int main()
 {
-    User admin("admin", "admin", "123456");
+    users[0] = new User("admin", "admin", "123456");
     for (int i = 0; Gpermissions[i] != NULL; i++)
     {
-        admin.addpermission(Gpermissions[i]);
+        users[0]->addpermission(Gpermissions[i]);
     }
     if (Auth::whoami())
         loginTMenu();
     else
         loginFMenu();
-
+    for (int i = 0; Gpermissions[i] != NULL; i++)
+        delete Gpermissions[i];
+    for (int i = 0; Gtags[i] != NULL; i++)
+        delete Gtags[i];
+    for (int i = 0; users[i] != NULL; i++)
+        delete users[i];
     return 0;
 }
 
@@ -480,16 +476,18 @@ void loginFMenu()
     char choice;
     while (true)
     {
-        cout << "* Login(L)" << endl;
-        cout << "* view All Questions(V)" << endl;
+        cout << "* Login(L)\n"
+             << "* view All Questions(V)\n"
+             << "* Exit(X)\n";
 
         cin >> choice;
+        cin.ignore();
+
         switch (choice)
         {
         case 'l':
         case 'L':
         {
-            cin.ignore();
             string n, un, pa;
             cout << "Enter Name:\n";
             getline(cin, n);
@@ -497,8 +495,8 @@ void loginFMenu()
             getline(cin, un);
             cout << "Enter Password:\n";
             getline(cin, pa);
-            Auth::login(un, pa);
-            loginTMenu();
+            if (Auth::login(un, pa))
+                loginTMenu();
             break;
         }
         case 'v':
@@ -506,14 +504,16 @@ void loginFMenu()
             printAllQ();
             break;
         }
-        system("cls");
+        if (choice == 'x' || choice == 'X')
+        {
+            system("clear");
+            break;
+        }
     }
 }
 
 void loginTMenu()
 {
-    User *x = Auth::whoami();
-    Auth::whoami()->myName();
     cout << "----------------------------------\n"
          << "Hello " << Auth::whoami()->myName() << "!\n"
          << "----------------------------------\n";
@@ -547,8 +547,10 @@ void loginTMenu()
             break;
         }
         if (choice == 'x' || choice == 'X')
+        {
+            system("clear");
             break;
-        system("cls");
+        }
     }
 }
 
@@ -682,8 +684,10 @@ void questionMenu()
             break;
         }
         if (choice == 'x' || choice == 'X')
+        {
+            system("clear");
             break;
-        system("cls");
+        }
     }
 }
 
@@ -716,8 +720,10 @@ void tagMenu()
         }
         }
         if (choice == 'x' || choice == 'X')
+        {
+            system("clear");
             break;
-        system("cls");
+        }
     }
 }
 
@@ -750,7 +756,7 @@ void userMenu()
             getline(cin, un);
             cout << "Enter Password:\n";
             getline(cin, pa);
-            User::create(n, un, pa);
+            User::create(n, un, pa, Auth::whoami());
             break;
         }
         case 'p':
@@ -767,13 +773,15 @@ void userMenu()
                  << "edit-four-choice-question(4)\n"
                  << "add-user(5)\n";
             cin >> p;
-            users[ID]->addpermission(Gpermissions[p]);
+            users[ID]->addpermission(Gpermissions[p - 1]);
             break;
         }
         }
         if (choice == 'x' || choice == 'X')
+        {
+            system("clear");
             break;
-        system("cls");
+        }
     }
 }
 
