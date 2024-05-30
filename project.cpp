@@ -598,7 +598,7 @@ void questionMenu()
             int ID;
             cout << " Enter the ID of the Question you want to print: \n";
             cin >> ID;
-            questions[ID]->print;
+            questions[ID]->print();
             break;
         }
         case 'u':
@@ -609,7 +609,8 @@ void questionMenu()
             cout << "Enter the Question: \n";
             getline(cin, question);
             string a, b, c, d;
-            cout << "Enter Options(one on each line): \n" getline(cin, a);
+            cout << "Enter Options(one on each line): \n";
+            getline(cin, a);
             getline(cin, b);
             getline(cin, c);
             getline(cin, d);
