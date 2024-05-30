@@ -582,7 +582,8 @@ void questionMenu()
             DateTime temp;
             cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
             cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-            questions[ID]->edit(question, temp, *Auth::whoami());
+            // questions[ID]->edit(question, temp, *Auth::whoami());
+            // todo
             break;
         }
         case 'd':
