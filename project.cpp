@@ -63,6 +63,7 @@ public:
     void addpermission(Permission *permission);
     void print();
     bool checkAuth(string un, string pa);
+    bool checkPermTi(string);
 };
 User *users[100] = {NULL};
 User *User::create(string n, string un, string pa)
@@ -124,6 +125,18 @@ bool User::checkAuth(string un, string pa)
     {
         if (password == pa)
             return true;
+    }
+    return false;
+}
+
+bool User::checkPermTi(string ti)
+{
+    for (int i = 0; permissions[i] != NULL; i++)
+    {
+        if (permissions[i]->viewTitle() == ti)
+        {
+            return true;
+        }
     }
     return false;
 }
@@ -192,7 +205,7 @@ string Tag::veiwTitle()
 
 void Tag::print()
 {
-    cout << title << endl;
+    cout << title;
 }
 
 Tag *Gtags[100] = {NULL};
@@ -216,6 +229,7 @@ public:
     virtual void print() = 0;
     virtual void printAll() = 0;
     void addTag(Tag *);
+    string TypeBack();
 
 protected:
     string question;
@@ -236,6 +250,11 @@ void Question::addTag(Tag *tag)
     }
     if (tags[i] == NULL)
         tags[i] = tag;
+}
+
+string Question::TypeBack()
+{
+    return type;
 }
 
 Question *questions[100] = {NULL};
@@ -265,16 +284,16 @@ void FourChoice::print()
          << "D) " << D << endl;
     cout << "Created at: " << createdAt.year << '/' << createdAt.month << '/' << createdAt.day
          << ' ' << createdAt.hour << ':' << createdAt.minute << ':' << createdAt.second << endl
-         << "by user ";
+         << "by user: ";
     user.print();
     cout << "Tags: ";
     for (int i = 0; tags[i] != NULL; i++)
     {
-        cout << tags[i] << ',';
+        tags[i]->print();
+        cout << ',';
     }
-    cout << endl;
     if (isPublished)
-        cout << "This question is published\n";
+        cout << "\nThis question is published\n";
     else
         cout << "This question is not published\n";
 }
@@ -283,7 +302,7 @@ void FourChoice::printAll()
 {
     for (int i = 0; questions[i] != NULL; i++)
     {
-        if (questions[i]->type == "four-choice")
+        if (questions[i]->TypeBack() == "four-choice")
         {
             questions[i]->print();
         }
@@ -292,13 +311,7 @@ void FourChoice::printAll()
 
 FourChoice *FourChoice::edit(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
 {
-    bool flag = false;
-    for (int i = 0; Auth::whoami()->permissions[i] = NULL; i++)
-    {
-        if (whoami()->permissions[i]->title == "edit-four-choice-question")
-            flag = true;
-    }
-    if (flag)
+    if (Auth::whoami()->checkPermTi("edit-four-choice-question"))
     {
         this->A = A;
         this->B = B;
@@ -313,13 +326,7 @@ FourChoice *FourChoice::edit(string question, DateTime createdAt, User user, str
 
 FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
 {
-    bool flag = false;
-    for (int i = 0; Auth::whoami()->permissions[i] = NULL; i++)
-    {
-        if (whoami()->permissions[i]->title == "add-four-choice-question")
-            flag = true;
-    }
-    if (flag)
+    if (Auth::whoami()->checkPermTi("add-four-choice-question"))
     {
         FourChoice *x = new FourChoice(question, createdAt, user, A, B, C, D, answer);
         int i = 0;
@@ -336,26 +343,83 @@ FourChoice *FourChoice::create(string question, DateTime createdAt, User user, s
 class Descriptive : public Question
 {
 public:
-    Descriptive(string qu, DateTime cr, User us) : Question(qu, "Descriptive", cr, us) {}
-    void AddAnswer() { this->answer = answer; }
-    void print() {}
-    void printAll() {}
-    static Descriptive *create(string question, DateTime createdAt, User user)
+    Descriptive(string qu, DateTime cr, User us);
+    void AddAnswer(string ans);
+    void print();
+    void printAll();
+    static Descriptive *create(string question, DateTime createdAt, User user);
+    Descriptive *edit(string question, DateTime createdAt, User user);
+
+private:
+    string answer;
+};
+
+Descriptive::Descriptive(string qu, DateTime cr, User us) : Question(qu, "descriptive", cr, us) {}
+
+void Descriptive::AddAnswer(string ans)
+{
+    answer = ans;
+}
+
+void Descriptive::print()
+{
+    cout << "Question: " << question << endl
+         << "Answer: " << answer << endl;
+    cout << "Created at: " << createdAt.year << '/' << createdAt.month << '/' << createdAt.day
+         << ' ' << createdAt.hour << ':' << createdAt.minute << ':' << createdAt.second << endl
+         << "by user: ";
+    user.print();
+    cout << "Tags: ";
+    for (int i = 0; tags[i] != NULL; i++)
+    {
+        tags[i]->print();
+        cout << ',';
+    }
+    if (isPublished)
+        cout << "This question is published\n";
+    else
+        cout << "This question is not published\n";
+}
+
+void Descriptive::printAll()
+{
+    for (int i = 0; questions[i] != NULL; i++)
+    {
+        if (questions[i]->TypeBack() == "descriptive")
+        {
+            questions[i]->print();
+        }
+    }
+}
+
+Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
+{
+    if (Auth::whoami()->checkPermTi("add-descriptive-question"))
     {
         Descriptive *x = new Descriptive(question, createdAt, user);
+        int i = 0;
+        for (; questions[i] != NULL; i++)
+        {
+            ;
+        }
+        questions[i] = x;
         return x;
     }
-    Descriptive *edit(string question, DateTime createdAt, User user)
+    return NULL;
+}
+
+Descriptive *Descriptive::edit(string question, DateTime createdAt, User user)
+{
+    if (Auth::whoami()->checkPermTi("edit-descriptive-question"))
     {
         this->question = question;
         this->createdAt = createdAt;
         this->user = user;
         return new Descriptive(question, createdAt, user);
     }
-
-private:
-    string answer;
-};
+    else
+        return NULL;
+}
 
 void stub();
 void login();
