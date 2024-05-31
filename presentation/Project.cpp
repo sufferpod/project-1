@@ -1,13 +1,13 @@
 #include <iostream>
-#include "structs.h"
-#include "permission.h"
+#include "Structs.h"
+#include "Permission.h"
 #include "Users.h"
 #include "Auth.h"
 #include "Tag.h"
-#include "question.h"
+#include "Question.h"
 #include "FourChoice.h"
 #include "Descriptive.h"
-#include "utils.h"
+#include "Utils.h"
 
 using namespace std;
 

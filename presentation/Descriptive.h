@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "question.h"
-#include "permission.h"
+#include "Question.h"
+#include "Permission.h"
 #include "Auth.h"
 
 using namespace std;

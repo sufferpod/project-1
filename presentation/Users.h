@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "permission.h"
+#include "Permission.h"
 using namespace std;
 
 class User

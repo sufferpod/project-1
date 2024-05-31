@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "structs.h"
+#include "Structs.h"
 #include "Users.h"
 #include "Tag.h"
 using namespace std;
