@@ -73,7 +73,11 @@ Question *FourChoice::edit(string question, DateTime createdAt, User user, strin
         return new FourChoice(question, createdAt, user, A, B, C, D, answer);
     }
     else
+    {
+        cout << "You don't have the \"edit-four-choice-question\" permission\n";
         return NULL;
+    }
+    return NULL;
 }
 
 FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
@@ -89,6 +93,11 @@ FourChoice *FourChoice::create(string question, DateTime createdAt, User user, s
         questions[i] = x;
         x->publish();
         return x;
+    }
+    else
+    {
+        cout << "You don't have the \"add-four-choice-question\" permission\n";
+        return NULL;
     }
     return NULL;
 }

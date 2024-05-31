@@ -36,6 +36,11 @@ User *User::create(string n, string un, string pa, User *ami)
             return x;
         }
     }
+    else
+    {
+        cout << "You don't have the \"add-user\" permission\n";
+        return NULL;
+    }
     return NULL;
 }
 

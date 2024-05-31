@@ -63,6 +63,8 @@ void loginFMenu()
             getline(cin, pa);
             if (Auth::login(un, pa))
                 loginTMenu();
+            else
+                cout << "User not valid\n";
             break;
         }
         case 'v':

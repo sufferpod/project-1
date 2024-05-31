@@ -75,6 +75,11 @@ Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
         x->publish();
         return x;
     }
+    else
+    {
+        cout << "You don't have the \"add-descriptive-question\" permission\n";
+        return NULL;
+    }
     return NULL;
 }
 
@@ -89,5 +94,9 @@ Question *Descriptive::edit(string question, DateTime createdAt, User user)
         return new Descriptive(question, createdAt, user);
     }
     else
+    {
+        cout << "You don't have the \"edit-descriptive-question\" permission\n";
         return NULL;
+    }
+    return NULL;
 }

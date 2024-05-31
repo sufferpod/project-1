@@ -84,6 +84,11 @@ User *User::create(string n, string un, string pa, User *ami)
             return x;
         }
     }
+    else
+    {
+        cout << "You don't have the \"add-user\" permission\n";
+        return NULL;
+    }
     return NULL;
 }
 
@@ -338,7 +343,11 @@ Question *FourChoice::edit(string question, DateTime createdAt, User user, strin
         return new FourChoice(question, createdAt, user, A, B, C, D, answer);
     }
     else
+    {
+        cout << "You don't have the \"edit-four-choice-question\" permission\n";
         return NULL;
+    }
+    return NULL;
 }
 
 FourChoice *FourChoice::create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer)
@@ -354,6 +363,11 @@ FourChoice *FourChoice::create(string question, DateTime createdAt, User user, s
         questions[i] = x;
         x->publish();
         return x;
+    }
+    else
+    {
+        cout << "You don't have the \"add-four-choice-question\" permission\n";
+        return NULL;
     }
     return NULL;
 }
@@ -427,6 +441,11 @@ Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
         x->publish();
         return x;
     }
+    else
+    {
+        cout << "You don't have the \"add-descriptive-question\" permission\n";
+        return NULL;
+    }
     return NULL;
 }
 
@@ -441,7 +460,11 @@ Question *Descriptive::edit(string question, DateTime createdAt, User user)
         return new Descriptive(question, createdAt, user);
     }
     else
+    {
+        cout << "You don't have the \"edit-descriptive-question\" permission\n";
         return NULL;
+    }
+    return NULL;
 }
 
 void printDQ();
@@ -499,6 +522,8 @@ void loginFMenu()
             getline(cin, pa);
             if (Auth::login(un, pa))
                 loginTMenu();
+            else
+                cout << "User not valid\n";
             break;
         }
         case 'v':
