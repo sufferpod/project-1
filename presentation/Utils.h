@@ -19,8 +19,12 @@ void printFQ()
 }
 void printAllQ()
 {
-    printDQ();
-    printFQ();
+    p for (int i = 0; questions[i] != NULL; i++)
+    {
+        cout << "ID: " << i << endl;
+        questions[i]->print();
+        cout << "---------------------------------\n";
+    }
 }
 
 void clear()

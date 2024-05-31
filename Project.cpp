@@ -305,8 +305,9 @@ void FourChoice::print()
         tags[i]->print();
         cout << ',';
     }
+    cout << endl;
     if (isPublished)
-        cout << "\nThis question is published\n";
+        cout << "This question is published\n";
     else
         cout << "This question is not published\n";
 }
@@ -393,6 +394,7 @@ void Descriptive::print()
         tags[i]->print();
         cout << ',';
     }
+    cout << endl;
     if (isPublished)
         cout << "This question is published\n";
     else
@@ -800,6 +802,10 @@ void printFQ()
 }
 void printAllQ()
 {
-    printDQ();
-    printFQ();
+    for (int i = 0; questions[i] != NULL; i++)
+    {
+        cout << "ID: " << i << endl;
+        questions[i]->print();
+        cout << "---------------------------------\n";
+    }
 }

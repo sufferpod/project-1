@@ -40,8 +40,9 @@ void FourChoice::print()
         tags[i]->print();
         cout << ',';
     }
+    cout << endl;
     if (isPublished)
-        cout << "\nThis question is published\n";
+        cout << "This question is published\n";
     else
         cout << "This question is not published\n";
 }

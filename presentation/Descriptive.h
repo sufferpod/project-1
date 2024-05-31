@@ -42,6 +42,7 @@ void Descriptive::print()
         tags[i]->print();
         cout << ',';
     }
+    cout << endl;
     if (isPublished)
         cout << "This question is published\n";
     else
