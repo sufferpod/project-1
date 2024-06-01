@@ -116,6 +116,7 @@ void loginTMenu()
         }
         if (choice == 'x' || choice == 'X')
         {
+            Auth::logout();
             clear();
             break;
         }
