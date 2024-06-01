@@ -25,13 +25,13 @@ User *User::create(string n, string un, string pa, User *ami)
     User *x = new User(n, un, pa);
     if (ami->checkPermTi("add-user"))
     {
-        int i = 0;
-        for (; users[i] != NULL; i++)
-        {
-            ;
-        }
         if (!ami->checkAuth(un, pa))
         {
+            int i = 0;
+            for (; users[i] != NULL; i++)
+            {
+                ;
+            }
             users[i] = x;
             return x;
         }
@@ -80,11 +80,8 @@ void User::printAll()
 
 bool User::checkAuth(string un, string pa)
 {
-    if (username == un)
-    {
-        if (password == pa)
-            return true;
-    }
+    if (username == un && password == pa)
+        return true;
     return false;
 }
 

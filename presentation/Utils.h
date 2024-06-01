@@ -3,5 +3,5 @@
 
 void clear()
 {
-    system("clear");
+    system("cls");
 }
