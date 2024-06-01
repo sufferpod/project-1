@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctype.h>
 #include "Structs.h"
 #include "Permission.h"
 #include "Users.h"
@@ -7,6 +8,7 @@
 #include "Question.h"
 #include "FourChoice.h"
 #include "Descriptive.h"
+#include "Menus.h"
 #include "Utils.h"
 
 using namespace std;
@@ -34,6 +36,8 @@ int main()
         delete Gtags[i];
     for (int i = 0; users[i] != NULL; i++)
         delete users[i];
+    for (int i = 0; questions[i] != NULL; i++)
+        delete questions[i];
     return 0;
 }
 
@@ -48,31 +52,17 @@ void loginFMenu()
 
         cin >> choice;
         cin.ignore();
-
+        choice = tolower(choice);
         switch (choice)
         {
         case 'l':
-        case 'L':
-        {
-            string n, un, pa;
-            cout << "Enter Name:\n";
-            getline(cin, n);
-            cout << "Enter UserName:\n";
-            getline(cin, un);
-            cout << "Enter Password:\n";
-            getline(cin, pa);
-            if (Auth::login(un, pa))
-                loginTMenu();
-            else
-                cout << "User not valid\n";
+            LoginPrompt();
             break;
-        }
         case 'v':
-        case 'V':
             printAllQ();
             break;
         }
-        if (choice == 'x' || choice == 'X')
+        if (choice == 'x')
         {
             clear();
             break;
@@ -87,6 +77,7 @@ void loginTMenu()
          << "----------------------------------\n";
 
     char choice;
+    choice = tolower(choice);
     while (true)
     {
         cout << "\t* Question Menu(Q)\n"
@@ -97,24 +88,20 @@ void loginTMenu()
         cin >> choice;
         switch (choice)
         {
-        case 'Q':
         case 'q':
             questionMenu();
             break;
         case 't':
-        case 'T':
             tagMenu();
             break;
         case 'u':
-        case 'U':
             userMenu();
             break;
         case 'v':
-        case 'V':
             printAllQ();
             break;
         }
-        if (choice == 'x' || choice == 'X')
+        if (choice == 'x')
         {
             Auth::logout();
             clear();
@@ -140,119 +127,40 @@ void questionMenu()
              << "\t* view All Questions(V)\n"
              << "\t* Exit(X)\n";
         cin >> choice;
+        choice = tolower(choice);
         switch (choice)
         {
         case 'c':
-        case 'C':
-        {
-            cin.ignore();
-            string question;
-            cout << "Enter the Question: \n";
-            getline(cin, question);
-            DateTime temp;
-            cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
-            cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-            Descriptive::create(question, temp, *Auth::whoami());
+            createDescriptiveQ();
             break;
-        }
         case 'e':
-        case 'E':
-        {
-            int ID;
-            cout << "Enter the ID of the Question you want to edit: \n";
-            cin >> ID;
-            cin.ignore();
-            string question;
-            cout << "Enter the new Question: \n";
-            getline(cin, question);
-            DateTime temp;
-            cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
-            cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-            questions[ID]->edit(question, temp, *Auth::whoami());
+            editDescriptiveQ();
             break;
-        }
         case 'd':
-        case 'D':
         {
             printDQ();
             break;
         }
         case 'p':
-        case 'P':
-        {
-            int ID;
-            cout << " Enter the ID of the Question you want to print: \n";
-            cin >> ID;
-            questions[ID]->print();
+            PrintOneDescriptive();
             break;
-        }
         case 'u':
-        case 'U':
-        {
-            cin.ignore();
-            string question;
-            cout << "Enter the Question: \n";
-            getline(cin, question);
-            string a, b, c, d;
-            cout << "Enter Options(one on each line): \n";
-            getline(cin, a);
-            getline(cin, b);
-            getline(cin, c);
-            getline(cin, d);
-            char ans;
-            cout << "Enter the correct answer's letter: ";
-            cin >> ans;
-            DateTime temp;
-            cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
-            cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-            FourChoice::create(question, temp, *Auth::whoami(), a, b, c, d, ans);
+            createFourChoiceQ();
             break;
-        }
         case 'h':
-        case 'H':
-        {
-            int ID;
-            cout << "Enter the ID of the Question you want to edit: \n";
-            cin >> ID;
-            cin.ignore();
-            string question;
-            cout << "Enter the Question: \n";
-            getline(cin, question);
-            string a, b, c, d;
-            cout << "Enter Options(one on each line): \n";
-            getline(cin, a);
-            getline(cin, b);
-            getline(cin, c);
-            getline(cin, d);
-            char ans;
-            cout << "Enter the correct answer's letter: ";
-            cin >> ans;
-            DateTime temp;
-            cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
-            cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-            questions[ID]->edit(question, temp, *Auth::whoami(), a, b, c, d, ans);
+            editFourChoiceQ();
             break;
-        }
         case 'f':
-        case 'F':
             printFQ();
             break;
         case 'k':
-        case 'K':
-        {
-            int ID;
-            cout << " Enter the ID of the Question you want to print: \n";
-            cin >> ID;
-            questions[ID]->print();
+            PrintOneFourChoice();
             break;
-            break;
-        }
         case 'v':
-        case 'V':
             printAllQ();
             break;
         }
-        if (choice == 'x' || choice == 'X')
+        if (choice == 'x')
         {
             clear();
             break;
@@ -271,24 +179,17 @@ void tagMenu()
              << "\t* Exit(X)\n";
 
         cin >> choice;
+        choice = tolower(choice);
         switch (choice)
         {
         case 'l':
-        case 'L':
             Tag::printAll();
             break;
         case 't':
-        case 'T':
-        {
-            string temp;
-            cout << "Enter the Tag you want to add: \n";
-            cin.ignore();
-            getline(cin, temp);
-            Tag::create(temp);
+            addTag();
             break;
         }
-        }
-        if (choice == 'x' || choice == 'X')
+        if (choice == 'x')
         {
             clear();
             break;
@@ -308,45 +209,20 @@ void userMenu()
              << "\t* Exit(X)\n";
 
         cin >> choice;
+        choice = tolower(choice);
         switch (choice)
         {
         case 'l':
-        case 'L':
             User::printAll();
             break;
         case 'u':
-        case 'U':
-        {
-            cin.ignore();
-            string n, un, pa;
-            cout << "Enter Name:\n";
-            getline(cin, n);
-            cout << "Enter UserName:\n";
-            getline(cin, un);
-            cout << "Enter Password:\n";
-            getline(cin, pa);
-            User::create(n, un, pa, Auth::whoami());
+            addUser();
             break;
-        }
         case 'p':
-        case 'P':
-        {
-            int ID;
-            cout << "enter the ID of the User you want to add permission to: \n";
-            cin >> ID;
-            int p;
-            cout << "What permission do you want to add?\n"
-                 << "add-descriptive-question(1)\n"
-                 << "add-four-choice-question(2)\n"
-                 << "edit-descriptive-question(3)\n"
-                 << "edit-four-choice-question(4)\n"
-                 << "add-user(5)\n";
-            cin >> p;
-            users[ID]->addpermission(Gpermissions[p - 1]);
+            addPermission2User();
             break;
         }
-        }
-        if (choice == 'x' || choice == 'X')
+        if (choice == 'x')
         {
             clear();
             break;
