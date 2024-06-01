@@ -29,5 +29,5 @@ void printAllQ()
 
 void clear()
 {
-    system("clear");
+    system("cls");
 }
