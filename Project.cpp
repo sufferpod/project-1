@@ -207,10 +207,15 @@ Tag *Tag::create(string ti)
     int i = 0;
     for (; Gtags[i] != NULL; i++)
     {
-        ;
+        if (Gtags[i]->veiwTitle() == ti)
+            break;
     }
-    Gtags[i] = temp;
-    return temp;
+    if (Gtags[i] == NULL)
+    {
+        Gtags[i] = temp;
+        return temp;
+    }
+    return NULL;
 }
 
 string Tag::veiwTitle()
@@ -575,6 +580,7 @@ void loginTMenu()
         }
         if (choice == 'x' || choice == 'X')
         {
+            Auth::logout();
             system("clear");
             break;
         }
