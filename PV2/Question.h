@@ -43,5 +43,3 @@ string Question::TypeBack()
 {
     return type;
 }
-
-Question *questions[100] = {NULL};

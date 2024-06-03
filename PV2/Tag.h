@@ -16,7 +16,8 @@ public:
     static void printAll();
 };
 
-Tag *Gtags[100] = {NULL};
+#include "Tag.h"
+
 Tag *Tag::create(string ti)
 {
     Tag *temp = new Tag(ti);

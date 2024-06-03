@@ -3,6 +3,7 @@
 #include "Question.h"
 #include "Permission.h"
 #include "Auth.h"
+#include "Database.h"
 
 using namespace std;
 

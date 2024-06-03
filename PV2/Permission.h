@@ -14,9 +14,7 @@ public:
     string viewTitle();
 };
 
-Permission *Gpermissions[100] = {new Permission("add-descriptive-question"), new Permission("add-four-choice-question"),
-                                 new Permission("edit-descriptive-question"), new Permission("edit-four-choice-question"),
-                                 new Permission("add-user"), NULL};
+#include "Database.h"
 
 Permission *Permission::create(string ti)
 {
