@@ -51,12 +51,12 @@ void Descriptive::print()
 
 void Descriptive::printAll()
 {
-    for (int i = 0; questions[i] != NULL; i++)
+    for (int i = 0; Gquestions.give(i) != NULL; i++)
     {
-        if (questions[i]->TypeBack() == "descriptive")
+        if (Gquestions.give(i)->TypeBack() == "descriptive")
         {
             cout << "ID : " << i << endl;
-            questions[i]->print();
+            Gquestions.give(i)->print();
         }
     }
 }
@@ -66,12 +66,7 @@ Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
     if (Auth::whoami()->checkPermTi("add-descriptive-question"))
     {
         Descriptive *x = new Descriptive(question, createdAt, user);
-        int i = 0;
-        for (; questions[i] != NULL; i++)
-        {
-            ;
-        }
-        questions[i] = x;
+        Gquestions.append(x);
         x->publish();
         return x;
     }

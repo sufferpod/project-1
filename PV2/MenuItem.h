@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Users.h"
 #include "FourChoice.h"
 #include "Descriptive.h"
 using namespace std;
@@ -28,7 +29,7 @@ void editDescriptiveQ()
     DateTime temp;
     cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
     cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-    questions[ID]->edit(question, temp, *Auth::whoami());
+    Gquestions.give(ID)->edit(question, temp, *Auth::whoami());
 }
 
 void printDQ()
@@ -43,7 +44,7 @@ void PrintOneDescriptive()
     int ID;
     cout << " Enter the ID of the Question you want to print: \n";
     cin >> ID;
-    questions[ID]->print();
+    Gquestions.give(ID)->print();
 }
 
 void createFourChoiceQ()
@@ -88,7 +89,7 @@ void editFourChoiceQ()
     DateTime temp;
     cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
     cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-    questions[ID]->edit(question, temp, *Auth::whoami(), a, b, c, d, ans);
+    Gquestions.give(ID)->edit(question, temp, *Auth::whoami(), a, b, c, d, ans);
 }
 
 void printFQ()
@@ -104,15 +105,15 @@ void PrintOneFourChoice()
     int ID;
     cout << " Enter the ID of the Question you want to print: \n";
     cin >> ID;
-    questions[ID]->print();
+    Gquestions.give(ID)->print();
 }
 
 void printAllQ()
 {
-    for (int i = 0; questions[i] != NULL; i++)
+    for (int i = 0; Gquestions.give(i) != NULL; i++)
     {
         cout << "ID: " << i << endl;
-        questions[i]->print();
+        Gquestions.give(i)->print();
         cout << "---------------------------------\n";
     }
 }
@@ -152,5 +153,5 @@ void addPermission2User()
          << "edit-four-choice-question(4)\n"
          << "add-user(5)\n";
     cin >> p;
-    users[ID]->addpermission(Gpermissions[p - 1]);
+    Gusers.give(ID)->addpermission(Gpermissions.give(p - 1));
 }

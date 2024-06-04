@@ -13,31 +13,22 @@
 
 using namespace std;
 
+void boot();
 void loginTMenu();
 void loginFMenu();
 void questionMenu();
 void tagMenu();
 void userMenu();
+void unboot();
 
 int main()
 {
-    users[0] = new User("admin", "admin", "123456");
-    for (int i = 0; Gpermissions[i] != NULL; i++)
-    {
-        users[0]->addpermission(Gpermissions[i]);
-    }
+    boot();
     if (Auth::whoami())
         loginTMenu();
     else
         loginFMenu();
-    for (int i = 0; Gpermissions[i] != NULL; i++)
-        delete Gpermissions[i];
-    for (int i = 0; Gtags[i] != NULL; i++)
-        delete Gtags[i];
-    for (int i = 0; users[i] != NULL; i++)
-        delete users[i];
-    for (int i = 0; questions[i] != NULL; i++)
-        delete questions[i];
+    unboot();
     return 0;
 }
 
@@ -89,15 +80,15 @@ void loginTMenu()
          << "----------------------------------\n";
 
     char choice;
-    choice = tolower(choice);
     while (true)
     {
         cout << "\t* Question Menu(Q)\n"
              << "\t* Tag Menu(T)\n"
              << "\t* User Menu(U)\n"
              << "\t* view All Questions(V)\n"
-             << "\t* Exit(X)\n";
+             << "\t* Logout(X)\n";
         cin >> choice;
+        choice = tolower(choice);
         switch (choice)
         {
         case 'q':

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "LinkList.h"
 using namespace std;
 
 class Permission
@@ -14,24 +15,26 @@ public:
     string viewTitle();
 };
 
-Permission *Gpermissions[100] = {new Permission("add-descriptive-question"), new Permission("add-four-choice-question"),
-                                 new Permission("edit-descriptive-question"), new Permission("edit-four-choice-question"),
-                                 new Permission("add-user"), NULL};
+string basicperm[5]{
+    "add-descriptive-question", "add-four-choice-question",
+    "edit-descriptive-question", "edit-four-choice-question",
+    "add-user"};
+linkedList<Permission> Gpermissions;
 
 Permission *Permission::create(string ti)
 {
     Permission *x = new Permission(ti);
     int i = 0;
-    for (; Gpermissions[i] != NULL; i++)
+    for (; Gpermissions.give(i) != NULL; i++)
     {
-        if (Gpermissions[i]->title == x->title)
+        if (Gpermissions.give(i)->title == x->title)
         {
             break;
         }
     }
-    if (Gpermissions[i] == NULL)
+    if (Gpermissions.give(i) == NULL)
     {
-        Gpermissions[i] = x;
+        Gpermissions.append(x);
     }
     return x;
 }

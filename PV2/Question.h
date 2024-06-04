@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Structs.h"
+#include "LinkList.h"
 #include "Users.h"
 #include "Tag.h"
 using namespace std;
@@ -44,4 +45,4 @@ string Question::TypeBack()
     return type;
 }
 
-Question *questions[100] = {NULL};
+linkedList<Question> Gquestions;

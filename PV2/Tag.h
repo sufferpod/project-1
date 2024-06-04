@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "LinkList.h"
 
 using namespace std;
 
@@ -16,19 +17,20 @@ public:
     static void printAll();
 };
 
-Tag *Gtags[100] = {NULL};
+linkedList<Tag> Gtags;
+
 Tag *Tag::create(string ti)
 {
     Tag *temp = new Tag(ti);
     int i = 0;
-    for (; Gtags[i] != NULL; i++)
+    for (; Gtags.give(i) != NULL; i++)
     {
-        if (Gtags[i]->veiwTitle() == ti)
+        if (Gtags.give(i)->veiwTitle() == ti)
             break;
     }
-    if (Gtags[i] == NULL)
+    if (Gtags.give(i) == NULL)
     {
-        Gtags[i] = temp;
+        Gtags.append(temp);
         return temp;
     }
     return NULL;
@@ -47,10 +49,10 @@ void Tag::print()
 void Tag::printAll()
 {
     cout << "tags: \n";
-    for (int i = 0; Gtags[i] != NULL; i++)
+    for (int i = 0; Gtags.give(i) != NULL; i++)
     {
         cout << "ID: " << i << '=';
-        Gtags[i]->print();
+        Gtags.give(i)->print();
         cout << endl;
     }
     cout << endl;

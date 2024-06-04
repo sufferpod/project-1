@@ -49,12 +49,12 @@ void FourChoice::print()
 
 void FourChoice::printAll()
 {
-    for (int i = 0; questions[i] != NULL; i++)
+    for (int i = 0; Gquestions.give(i) != NULL; i++)
     {
-        if (questions[i]->TypeBack() == "four-choice")
+        if (Gquestions.give(i)->TypeBack() == "four-choice")
         {
             cout << "ID : " << i << endl;
-            questions[i]->print();
+            Gquestions.give(i)->print();
         }
     }
 }
@@ -85,12 +85,7 @@ FourChoice *FourChoice::create(string question, DateTime createdAt, User user, s
     if (Auth::whoami()->checkPermTi("add-four-choice-question"))
     {
         FourChoice *x = new FourChoice(question, createdAt, user, A, B, C, D, answer);
-        int i = 0;
-        for (; questions[i] != NULL; i++)
-        {
-            ;
-        }
-        questions[i] = x;
+        Gquestions.append(x);
         x->publish();
         return x;
     }

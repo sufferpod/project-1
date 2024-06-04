@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "LinkList.h"
 #include "Permission.h"
 using namespace std;
 
@@ -19,7 +20,9 @@ public:
     bool checkPermTi(string);
     string myName();
 };
-User *users[100] = {NULL};
+
+linkedList<User> Gusers;
+
 User *User::create(string n, string un, string pa, User *ami)
 {
     User *x = new User(n, un, pa);
@@ -27,12 +30,7 @@ User *User::create(string n, string un, string pa, User *ami)
     {
         if (!ami->checkAuth(un, pa))
         {
-            int i = 0;
-            for (; users[i] != NULL; i++)
-            {
-                ;
-            }
-            users[i] = x;
+            Gusers.append(x);
             return x;
         }
     }
@@ -70,10 +68,10 @@ void User::print()
 
 void User::printAll()
 {
-    for (int i = 0; users[i] != NULL; i++)
+    for (int i = 0; Gusers.give(i) != NULL; i++)
     {
         cout << "ID: " << i << endl;
-        users[i]->print();
+        Gusers.give(i)->print();
         cout << endl;
     }
 }

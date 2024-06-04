@@ -14,12 +14,12 @@ public:
 
 User *Auth::login(string username, string password)
 {
-    for (int i = 0; users[i] != NULL; i++)
+    for (int i = 0; Gusers.give(i) != NULL; i++)
     {
-        if (users[i]->checkAuth(username, password))
+        if (Gusers.give(i)->checkAuth(username, password))
         {
-            auth = users[i];
-            return users[i];
+            auth = Gusers.give(i);
+            return Gusers.give(i);
         }
     }
     return NULL;

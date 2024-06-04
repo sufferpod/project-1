@@ -2,22 +2,16 @@
 #include "Question.h"
 #include "FourChoice.h"
 #include "Descriptive.h"
+#include "Structs.h"
 
 using namespace std;
-
-template <class T>
-struct Node
-{
-    T *data;
-    Node *next;
-    Node(T *data) : data(data), next(NULL) {}
-};
 
 template <class T>
 class linkedList
 {
 private:
     Node<T> *head = NULL;
+    Node<T> *tail = NULL;
 
 public:
     linkedList() { head = NULL; }
@@ -36,13 +30,7 @@ void linkedList<T>::insertNode(T *data)
         head = newNode;
         return;
     }
-    Node<T> *temp = head;
-    while (temp->next != NULL)
-    {
-        temp = temp->next;
-    }
-
-    temp->next = newNode;
+    tail->next = newNode;
 }
 
 template <class T>
@@ -64,7 +52,7 @@ void linkedList<T>::printList()
 }
 
 template <class T>
-void linkedList<T>::deleteNode(int nodeOffset)
+void linkedList<T>::deleteNode(int ID)
 {
     Node<T> *temp1 = head, *temp2 = NULL;
     int ListLen = 0;
@@ -80,21 +68,21 @@ void linkedList<T>::deleteNode(int nodeOffset)
         ListLen++;
     }
 
-    if (ListLen < nodeOffset)
+    if (ListLen < ID)
     {
         return;
     }
 
     temp1 = head;
 
-    if (nodeOffset == 1)
+    if (ID == 1)
     {
         head = head->next;
         delete temp1;
         return;
     }
 
-    while (nodeOffset-- > 1)
+    while (ID-- > 1)
     {
         temp2 = temp1;
         temp1 = temp1->next;
@@ -106,22 +94,28 @@ void linkedList<T>::deleteNode(int nodeOffset)
 
 int main()
 {
-    linkedList<Question> list;
+    linkedList<Question> Qlist;
+    linkedList<User> Ulist;
 
-    list.insertNode(new FourChoice("0", {0, 0, 0, 0, 0, 0}, User("0", "0", "0"), "a", "b", "c", "d", '0'));
-    list.insertNode(new FourChoice("1", {1, 1, 1, 1, 1, 1}, User("1", "1", "1"), "A", "B", "C", "D", 'E'));
-    list.insertNode(new Descriptive("0", {0, 0, 0, 0, 0, 0}, User("0", "0", "0")));
-    list.insertNode(new Descriptive("0", {0, 0, 0, 0, 0, 0}, User("0", "0", "0")));
+    Qlist.insertNode(new FourChoice("0", {0, 0, 0, 0, 0, 0}, User("0", "0", "0"), "a", "b", "c", "d", '0'));
+    Qlist.insertNode(new FourChoice("1", {1, 1, 1, 1, 1, 1}, User("1", "1", "1"), "A", "B", "C", "D", 'E'));
+    Qlist.insertNode(new Descriptive("0", {0, 0, 0, 0, 0, 0}, User("0", "0", "0")));
+    Qlist.insertNode(new Descriptive("0", {0, 0, 0, 0, 0, 0}, User("0", "0", "0")));
+    Ulist.insertNode(new User("admin", "admin", "123456"));
+    cout
+        << "Elements of the list are: \n";
 
-    cout << "Elements of the list are: ";
-
-    list.printList();
+    Qlist.printList();
     cout << endl;
 
-    list.deleteNode(2);
+    Qlist.deleteNode(2);
 
-    cout << "Elements of the list are: ";
-    list.printList();
+    cout << "Elements of the Qlist are: \n";
+    Qlist.printList();
+    cout << endl;
+
+    cout << "Elements of the Ulist are: \n";
+    Ulist.printList();
     cout << endl;
 
     return 0;
