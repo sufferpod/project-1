@@ -19,8 +19,7 @@ public:
     bool checkPermTi(string);
     string myName();
 };
-#include "Database.h"
-
+User *users[100] = {NULL};
 User *User::create(string n, string un, string pa, User *ami)
 {
     User *x = new User(n, un, pa);
