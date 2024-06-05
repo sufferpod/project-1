@@ -1,9 +1,17 @@
 admin
 admin
 123456
+add-descriptive-question
+add-four-choice-question
+edit-descriptive-question
+edit-four-choice-question
+add-user
+permend
 sadra
 sadra
 123
+permend
 mobina
 mobina
 135
+permend

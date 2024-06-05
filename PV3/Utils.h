@@ -33,19 +33,36 @@ void finalDelete(Node<T> *head)
 void loadUsers()
 {
     fstream Userfile("/home/suffer/project 1/PV3/Users.txt", ios::in);
-    string t1, t2, t3;
-    while (getline(Userfile, t1))
+    string n, un, pa, permend;
+    int u = 0;
+    while (getline(Userfile, n))
     {
-        getline(Userfile, t2);
-        getline(Userfile, t3);
-        Gusers.append(new User(t1, t2, t3));
+        Permission *perms[5] = {NULL};
+        getline(Userfile, un);
+        getline(Userfile, pa);
+        Gusers.append(new User(n, un, pa));
+        for (int i = 0;; i++)
+        {
+            getline(Userfile, permend);
+            if (permend == "permend")
+            {
+                break;
+            }
+            perms[i] = new Permission(permend);
+        }
+
+        User *temp = Gusers.give(u);
+        for (int i = 0; perms[i] != NULL; i++)
+        {
+            temp->addpermission(perms[i]);
+        }
+        for (int i = 0; perms[i] != NULL; i++)
+        {
+            delete perms[i];
+        }
+        u++;
     }
     Userfile.close();
-    User *admin = Gusers.give(0);
-    for (int i = 0; Gpermissions.give(i) != NULL; i++)
-    {
-        admin->addpermission(Gpermissions.give(i));
-    }
 }
 
 void loadQuestions()
@@ -97,9 +114,14 @@ void unLoadUsers()
     for (int i = 0; Gusers.give(i) != NULL; i++)
     {
         User *temp = Gusers.give(i);
-        Userfile << temp->name << endl;
-        Userfile << temp->username << endl;
-        Userfile << temp->password;
+        Userfile << temp->name << endl
+                 << temp->username << endl
+                 << temp->password << endl;
+        for (int i = 0; temp->permissions[i] != NULL; i++)
+        {
+            Userfile << temp->permissions[i]->viewTitle() << endl;
+        }
+        Userfile << "permend";
         if (temp != Gusers.tail->data)
             Userfile << endl;
     }
