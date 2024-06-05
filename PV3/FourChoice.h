@@ -8,6 +8,8 @@ using namespace std;
 
 class FourChoice : public Question
 {
+    friend void unLoadQuestions();
+
 public:
     FourChoice(string Qu, DateTime ti, User us, string a, string b, string c, string d, char ans);
     void print();

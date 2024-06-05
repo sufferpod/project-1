@@ -8,6 +8,8 @@ using namespace std;
 
 class Question
 {
+    friend void unLoadQuestions();
+
 public:
     Question(string Qu, string ty, DateTime ti, User us) : question(Qu), type(ty), createdAt(ti), user(us) {}
     void publish() { isPublished = true; }

@@ -8,6 +8,8 @@ using namespace std;
 
 class Descriptive : public Question
 {
+    friend void unLoadQuestions();
+
 public:
     Descriptive(string qu, DateTime cr, User us);
     void AddAnswer(string ans);

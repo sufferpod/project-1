@@ -5,6 +5,9 @@ using namespace std;
 template <class T>
 class linkedList
 {
+    friend void unLoadUsers();
+    friend void unLoadQuestions();
+
 private:
     Node<T> *head;
     Node<T> *tail;
@@ -33,7 +36,7 @@ void linkedList<T>::append(T *data)
         return;
     }
     tail->next = newNode;
-    newNode = tail;
+    tail = newNode;
 }
 
 template <class T>
@@ -47,7 +50,7 @@ T *linkedList<T>::give(int ID)
         ListLen++;
     }
 
-    if (ListLen < ID)
+    if (ListLen < ID || head == NULL)
     {
         return NULL;
     }
@@ -58,8 +61,6 @@ T *linkedList<T>::give(int ID)
     {
         return head->data;
     }
-    else
-        return NULL;
 
     while (ID-- > 0)
     {

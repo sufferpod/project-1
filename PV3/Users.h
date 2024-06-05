@@ -6,6 +6,9 @@ using namespace std;
 
 class User
 {
+    friend void unLoadUsers();
+    friend void unLoadQuestions();
+
 private:
     string name, username, password;
     Permission *permissions[100] = {NULL};

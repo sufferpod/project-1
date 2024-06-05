@@ -10,6 +10,7 @@
         "tuple": "cpp",
         "variant": "cpp",
         "cstdlib": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "fstream": "cpp"
     }
 }

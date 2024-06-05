@@ -48,9 +48,7 @@ void loginFMenu()
         {
         case 'l':
         {
-            string n, un, pa;
-            cout << "Enter Name:\n";
-            getline(cin, n);
+            string un, pa;
             cout << "Enter UserName:\n";
             getline(cin, un);
             cout << "Enter Password:\n";
@@ -231,4 +229,21 @@ void userMenu()
             break;
         }
     }
+}
+
+void boot()
+{
+
+    for (int i = 0; i < 5; i++)
+    {
+        Gpermissions.append(new Permission(basicperm[i]));
+    }
+    loadUsers();
+}
+
+void unboot()
+{
+    unLoadUsers();
+    unLoadQuestions();
+    finalGdelete();
 }
