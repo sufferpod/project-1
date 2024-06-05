@@ -9,6 +9,7 @@
         "functional": "cpp",
         "tuple": "cpp",
         "variant": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "iosfwd": "cpp"
     }
 }
