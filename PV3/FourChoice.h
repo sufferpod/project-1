@@ -34,7 +34,7 @@ void FourChoice::print()
          << "D) " << D << endl;
     cout << "Created at: " << createdAt.year << '/' << createdAt.month << '/' << createdAt.day
          << ' ' << createdAt.hour << ':' << createdAt.minute << ':' << createdAt.second << endl
-         << "by user: ";
+         << "by user: \n";
     user.print();
     cout << "Tags: ";
     for (int i = 0; tags[i] != NULL; i++)

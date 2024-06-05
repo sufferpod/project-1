@@ -3,6 +3,7 @@
 #include "LinkList.h"
 #include "Permission.h"
 #include "Users.h"
+#include "Auth.h"
 #include "Question.h"
 #include <cstdlib>
 using namespace std;
@@ -28,6 +29,7 @@ void finalDelete(Node<T> *head)
     }
 }
 
+// todo load user permitions
 void loadUsers()
 {
     fstream Userfile("/home/suffer/project 1/PV3/Users.txt", ios::in);
@@ -49,9 +51,42 @@ void loadUsers()
 void loadQuestions()
 {
     fstream Qfile("/home/suffer/project 1/PV3/Questions.txt", ios::in);
-    string t1, t2, t3;
-    while (getline(Qfile, t1))
+    string Qtype;
+    while (getline(Qfile, Qtype))
     {
+        string question, n, un, pa;
+        DateTime temp;
+        if (Qtype == "descriptive")
+        {
+            getline(Qfile, question);
+            Qfile >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
+            Qfile.ignore();
+            getline(Qfile, n);
+            getline(Qfile, un);
+            getline(Qfile, pa);
+            Auth::login(un, pa);
+            Descriptive::create(question, temp, User(n, un, pa));
+            Auth::logout();
+        }
+        else
+        {
+            string A, B, C, D;
+            char answer;
+            getline(Qfile, question);
+            Qfile >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
+            Qfile.ignore();
+            getline(Qfile, n);
+            getline(Qfile, un);
+            getline(Qfile, pa);
+            getline(Qfile, A);
+            getline(Qfile, B);
+            getline(Qfile, C);
+            getline(Qfile, D);
+            Qfile >> answer;
+            Auth::login(un, pa);
+            FourChoice::create(question, temp, User(n, un, pa), A, B, C, D, answer);
+            Auth::logout();
+        }
     }
     Qfile.close();
 }

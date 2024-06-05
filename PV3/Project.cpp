@@ -239,6 +239,7 @@ void boot()
         Gpermissions.append(new Permission(basicperm[i]));
     }
     loadUsers();
+    loadQuestions();
 }
 
 void unboot()
