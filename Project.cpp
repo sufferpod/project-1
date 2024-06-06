@@ -95,6 +95,7 @@ User *User::create(string n, string un, string pa, User *ami)
 void User::addpermission(Permission *permission)
 {
     int i = 0;
+
     for (; permissions[i] != NULL; i++)
     {
         if (permissions[i]->viewTitle() == permission->viewTitle())
