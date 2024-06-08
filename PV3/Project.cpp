@@ -34,19 +34,18 @@ int main()
 
 void loginFMenu()
 {
-    char choice;
+    int choice;
     while (true)
     {
-        cout << "* Login(L)\n"
-             << "* view All Questions(V)\n"
-             << "* Exit(X)\n";
+        cout << "* Login(1)\n"
+             << "* view All Questions(2)\n"
+             << "* Exit(0)\n";
 
         cin >> choice;
         cin.ignore();
-        choice = tolower(choice);
         switch (choice)
         {
-        case 'l':
+        case 1:
         {
             string un, pa;
             cout << "Enter UserName:\n";
@@ -59,11 +58,11 @@ void loginFMenu()
                 cout << "User not valid\n";
             break;
         }
-        case 'v':
+        case 2:
             printAllQ();
             break;
         }
-        if (choice == 'x')
+        if (choice == 0)
         {
             clear();
             break;
@@ -77,32 +76,32 @@ void loginTMenu()
          << "Hello " << Auth::whoami()->myName() << "!\n"
          << "----------------------------------\n";
 
-    char choice;
+    int choice;
     while (true)
     {
-        cout << "\t* Question Menu(Q)\n"
-             << "\t* Tag Menu(T)\n"
-             << "\t* User Menu(U)\n"
-             << "\t* view All Questions(V)\n"
-             << "\t* Logout(X)\n";
+        cout << "\t* Question Menu(1)\n"
+             << "\t* Tag Menu(2)\n"
+             << "\t* User Menu(3)\n"
+             << "\t* view All Questions(4)\n"
+             << "\t* Logout(0)\n";
         cin >> choice;
-        choice = tolower(choice);
+        cin.ignore();
         switch (choice)
         {
-        case 'q':
+        case 1:
             questionMenu();
             break;
-        case 't':
+        case 2:
             tagMenu();
             break;
-        case 'u':
+        case 3:
             userMenu();
             break;
-        case 'v':
+        case 4:
             printAllQ();
             break;
         }
-        if (choice == 'x')
+        if (choice == 0)
         {
             Auth::logout();
             clear();
@@ -113,55 +112,65 @@ void loginTMenu()
 
 void questionMenu()
 {
-    char choice;
+    int choice;
     while (true)
     {
         cout << "Question Menu\n";
-        cout << "\t* Create Descriptive Question(C)\n"
-             << "\t* Edit Descriptive Question(E)\n"
-             << "\t* List of Descriptive Questions with ID(D)\n"
-             << "\t* Print Descriptive Question(P)\n"
-             << "\t* Create FourChoice Question(U)\n"
-             << "\t* Edit FourChoice Question(H)\n"
-             << "\t* List of FourChoice Questions with ID(F)\n"
-             << "\t* Print FourChoice Question(K)\n"
-             << "\t* view All Questions(V)\n"
-             << "\t* Exit(X)\n";
+        cout << "\t* Create Descriptive Question(1)\n"
+             << "\t* Edit Descriptive Question(2)\n"
+             << "\t* List of Descriptive Questions with ID(3)\n"
+             << "\t* Print Descriptive Question(4)\n"
+             << "\t* Create FourChoice Question(5)\n"
+             << "\t* Edit FourChoice Question(6)\n"
+             << "\t* List of FourChoice Questions with ID(7)\n"
+             << "\t* Print FourChoice Question(8)\n"
+             << "\t* view All Questions(9)\n"
+             << "\t* Add Tag to Question(10)\n"
+             << "\t* Publish a Question(11)\n"
+             << "\t* Unpublish a Question(12)\n"
+             << "\t* Exit(0)\n";
         cin >> choice;
-        choice = tolower(choice);
+        cin.ignore();
         switch (choice)
         {
-        case 'c':
+        case 1:
             createDescriptiveQ();
             break;
-        case 'e':
+        case 2:
             editDescriptiveQ();
             break;
-        case 'd':
-        {
+        case 3:
             printDQ();
             break;
-        }
-        case 'p':
+        case 4:
             PrintOneDescriptive();
             break;
-        case 'u':
+        case 5:
             createFourChoiceQ();
             break;
-        case 'h':
+        case 6:
             editFourChoiceQ();
             break;
-        case 'f':
+        case 7:
             printFQ();
             break;
-        case 'k':
+        case 8:
             PrintOneFourChoice();
             break;
-        case 'v':
+        case 9:
             printAllQ();
             break;
+        case 10:
+            addTagtoQuestion();
+            break;
+        case 11:
+            publishQuestion();
+            break;
+        case 12:
+            unPublishQuestion();
+            break;
         }
-        if (choice == 'x')
+        if (choice == 0)
         {
             clear();
             break;
@@ -171,26 +180,26 @@ void questionMenu()
 
 void tagMenu()
 {
-    char choice;
+    int choice;
     while (true)
     {
         cout << "Tag Menu\n";
-        cout << "\t*List of Tags with ID(L)\n"
-             << "\t*Create New Tag(T)\n"
-             << "\t* Exit(X)\n";
+        cout << "\t*List of Tags with ID(1)\n"
+             << "\t*Create New Tag(2)\n"
+             << "\t* Exit(0)\n";
 
         cin >> choice;
-        choice = tolower(choice);
+        cin.ignore();
         switch (choice)
         {
-        case 'l':
+        case 1:
             Tag::printAll();
             break;
-        case 't':
+        case 2:
             addTag();
             break;
         }
-        if (choice == 'x')
+        if (choice == 0)
         {
             clear();
             break;
@@ -200,30 +209,30 @@ void tagMenu()
 
 void userMenu()
 {
-    char choice;
+    int choice;
     while (true)
     {
         cout << "User Menu\n";
-        cout << "\t*List of Users with ID(L)\n"
-             << "\t*Create New User(U)\n"
-             << "\t*Add permission to a user(P)\n"
-             << "\t* Exit(X)\n";
+        cout << "\t*List of Users with ID(1)\n"
+             << "\t*Create New User(2)\n"
+             << "\t*Add permission to a user(3)\n"
+             << "\t* Exit(0)\n";
 
         cin >> choice;
-        choice = tolower(choice);
+        cin.ignore();
         switch (choice)
         {
-        case 'l':
+        case 1:
             User::printAll();
             break;
-        case 'u':
+        case 2:
             addUser();
             break;
-        case 'p':
+        case 3:
             addPermission2User();
             break;
         }
-        if (choice == 'x')
+        if (choice == 0)
         {
             clear();
             break;

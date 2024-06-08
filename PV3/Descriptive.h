@@ -45,20 +45,22 @@ void Descriptive::print()
         cout << ',';
     }
     cout << endl;
-    if (isPublished)
-        cout << "This question is published\n";
-    else
-        cout << "This question is not published\n";
 }
 
 void Descriptive::printAll()
 {
-    for (int i = 0; Gquestions.give(i) != NULL; i++)
+    int i = 0;
+    for (Question *temp = Gquestions.give(i); temp != NULL; i++)
     {
-        if (Gquestions.give(i)->TypeBack() == "descriptive")
+        if (temp->TypeBack() == "descriptive")
         {
-            cout << "ID : " << i << endl;
-            Gquestions.give(i)->print();
+            if (isPublished)
+            {
+                cout << "ID : " << i << endl;
+                temp->print();
+            }
+            else
+                cout << "ID : " << i << "Not published\n";
         }
     }
 }

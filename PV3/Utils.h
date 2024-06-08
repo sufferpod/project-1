@@ -32,6 +32,13 @@ void finalDelete(Node<T> *head)
 // todo load user permitions
 void loadUsers()
 {
+    Gusers.append(new User("admin", "admin", "123456"));
+    User *temp = Gusers.give(0);
+    for (int i = 0; Gpermissions.give(i) != NULL; i++)
+    {
+        temp->addpermission(Gpermissions.give(i));
+    }
+    Auth::login("admin", "123456");
     fstream Userfile("/home/suffer/project 1/PV3/Users.txt", ios::in);
     string n, un, pa, permend;
     int u = 0;
@@ -40,7 +47,7 @@ void loadUsers()
         Permission *perms[5] = {NULL};
         getline(Userfile, un);
         getline(Userfile, pa);
-        Gusers.append(new User(n, un, pa));
+        User::create(n, un, pa, Auth::whoami());
         for (int i = 0;; i++)
         {
             getline(Userfile, permend);
@@ -62,6 +69,7 @@ void loadUsers()
         }
         u++;
     }
+    Auth::logout();
     Userfile.close();
 }
 
@@ -111,7 +119,7 @@ void loadQuestions()
 void unLoadUsers()
 {
     fstream Userfile("/home/suffer/project 1/PV3/Users.txt", ios::out | ios::trunc);
-    for (int i = 0; Gusers.give(i) != NULL; i++)
+    for (int i = 1; Gusers.give(i) != NULL; i++)
     {
         User *temp = Gusers.give(i);
         Userfile << temp->name << endl

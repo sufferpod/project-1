@@ -110,12 +110,42 @@ void PrintOneFourChoice()
 
 void printAllQ()
 {
-    for (int i = 0; Gquestions.give(i) != NULL; i++)
+    int i = 0;
+    for (Question *temp = Gquestions.give(i); temp != NULL; i++)
     {
         cout << "ID: " << i << endl;
-        Gquestions.give(i)->print();
+        if (temp->isPublished)
+            temp->print();
+        else
+            cout << "Not published\n";
         cout << "---------------------------------\n";
     }
+}
+
+void addTagtoQuestion()
+{
+    int IDQ, IDT;
+    cout << "Enter the ID of the Question you want to add to: \n";
+    cin >> IDQ;
+    cout << "Enter the ID of the Tag you want to add: \n";
+    cin >> IDT;
+    Gquestions.give(IDQ)->addTag(Gtags.give(IDT));
+}
+
+void publishQuestion()
+{
+    int ID;
+    cout << "Enter the ID of the Question you want to Publish: \n";
+    cin >> ID;
+    Gquestions.give(ID)->publish();
+}
+
+void unPublishQuestion()
+{
+    int ID;
+    cout << "Enter the ID of the Question you want to Unpublish: \n";
+    cin >> ID;
+    Gquestions.give(ID)->unpublish();
 }
 
 void addTag()

@@ -43,20 +43,22 @@ void FourChoice::print()
         cout << ',';
     }
     cout << endl;
-    if (isPublished)
-        cout << "This question is published\n";
-    else
-        cout << "This question is not published\n";
 }
 
 void FourChoice::printAll()
 {
-    for (int i = 0; Gquestions.give(i) != NULL; i++)
+    int i = 0;
+    for (Question *temp = Gquestions.give(i); temp != NULL; i++)
     {
-        if (Gquestions.give(i)->TypeBack() == "four-choice")
+        if (temp->TypeBack() == "four-choice")
         {
-            cout << "ID : " << i << endl;
-            Gquestions.give(i)->print();
+            if (isPublished)
+            {
+                cout << "ID : " << i << endl;
+                temp->print();
+            }
+            else
+                cout << "ID : " << i << "Not published\n";
         }
     }
 }

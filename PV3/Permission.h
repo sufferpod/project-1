@@ -25,17 +25,12 @@ Permission *Permission::create(string ti)
 {
     Permission *x = new Permission(ti);
     int i = 0;
-    for (; Gpermissions.give(i) != NULL; i++)
+    for (Permission *temp = Gpermissions.give(i); temp != NULL; i++)
     {
-        if (Gpermissions.give(i)->title == x->title)
-        {
-            break;
-        }
+        if (temp->title == x->title)
+            return NULL;
     }
-    if (Gpermissions.give(i) == NULL)
-    {
-        Gpermissions.append(x);
-    }
+    Gpermissions.append(x);
     return x;
 }
 
