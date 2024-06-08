@@ -50,23 +50,20 @@ void User::addpermission(Permission *permission)
     int i = 0;
     for (; permissions[i] != NULL; i++)
     {
-        if (permissions[i]->viewTitle() == permission->viewTitle())
-        {
-            break;
-        }
+        if (permissions[i] == permission)
+            return;
     }
-
-    if (permissions[i] == NULL)
-    {
-        permissions[i] = permission;
-    }
+    permissions[i] = permission;
 }
 
 void User::print()
 {
     cout << "Name: " << name
          << "\nUser name: " << username
-         << "\nPassword: " << password << endl;
+         << "\nPassword: " << password
+         << "\nPermissions: \n";
+    for (int i = 0; permissions[i] != NULL; i++)
+        permissions[i]->print();
 }
 
 void User::printAll()
@@ -75,7 +72,6 @@ void User::printAll()
     {
         cout << "ID: " << i << endl;
         Gusers.give(i)->print();
-        cout << endl;
     }
 }
 
@@ -91,9 +87,7 @@ bool User::checkPermTi(string ti)
     for (int i = 0; permissions[i] != NULL; i++)
     {
         if (permissions[i]->viewTitle() == ti)
-        {
             return true;
-        }
     }
     return false;
 }

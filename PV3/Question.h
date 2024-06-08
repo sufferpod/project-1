@@ -8,6 +8,7 @@ using namespace std;
 
 class Question
 {
+    friend void printAllQ();
     friend void unLoadQuestions();
 
 public:
@@ -35,11 +36,10 @@ void Question::addTag(Tag *tag)
     int i = 0;
     for (; tags[i] != NULL; i++)
     {
-        if (tags[i]->veiwTitle() == tag->veiwTitle())
-            break;
+        if (tags[i] == tag)
+            return;
     }
-    if (tags[i] == NULL)
-        tags[i] = tag;
+    tags[i] = tag;
 }
 
 string Question::TypeBack()

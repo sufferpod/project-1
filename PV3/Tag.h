@@ -21,19 +21,15 @@ linkedList<Tag> Gtags;
 
 Tag *Tag::create(string ti)
 {
-    Tag *temp = new Tag(ti);
+    Tag *tempT = new Tag(ti);
     int i = 0;
-    for (; Gtags.give(i) != NULL; i++)
+    for (Tag *temp = Gtags.give(i); temp != NULL; i++)
     {
-        if (Gtags.give(i)->veiwTitle() == ti)
-            break;
+        if (temp->veiwTitle() == ti)
+            return NULL;
     }
-    if (Gtags.give(i) == NULL)
-    {
-        Gtags.append(temp);
-        return temp;
-    }
-    return NULL;
+    Gtags.append(tempT);
+    return tempT;
 }
 
 string Tag::veiwTitle()
@@ -43,17 +39,17 @@ string Tag::veiwTitle()
 
 void Tag::print()
 {
-    cout << title;
+    cout << title << endl;
 }
 
 void Tag::printAll()
 {
     cout << "tags: \n";
-    for (int i = 0; Gtags.give(i) != NULL; i++)
+    int i = 0;
+    for (Tag *temp = Gtags.give(i); temp != NULL; i++)
     {
         cout << "ID: " << i << '=';
-        Gtags.give(i)->print();
-        cout << endl;
+        temp->print();
     }
     cout << endl;
 }
