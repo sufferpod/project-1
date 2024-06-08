@@ -7,7 +7,7 @@ using namespace std;
 
 void createDescriptiveQ()
 {
-    cin.ignore();
+    cin.clear();
     string question;
     cout << "Enter the Question: \n";
     getline(cin, question);
@@ -49,7 +49,7 @@ void PrintOneDescriptive()
 
 void createFourChoiceQ()
 {
-    cin.ignore();
+    cin.clear();
     string question;
     cout << "Enter the Question: \n";
     getline(cin, question);
@@ -168,7 +168,7 @@ void addTag()
 
 void addUser()
 {
-    cin.ignore();
+    cin.clear();
     string n, un, pa;
     cout << "Enter Name:\n";
     getline(cin, n);
