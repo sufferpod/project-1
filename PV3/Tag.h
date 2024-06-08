@@ -49,7 +49,7 @@ void Tag::printAll()
     Tag *temp = Gtags.give(0);
     for (int i = 1; temp != NULL; i++)
     {
-        cout << "ID: " << i << '=';
+        cout << "ID: " << i - 1 << '=';
         temp->print();
         temp = Gtags.give(i);
     }

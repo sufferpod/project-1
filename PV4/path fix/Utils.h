@@ -40,7 +40,7 @@ void loadUsers()
         tempP = tempP->next;
     }
     Auth::login("admin", "123456");
-    fstream Userfile("/home/suffer/project 1/PV4/Users.txt", ios::in);
+    fstream Userfile("Users.txt", ios::in);
     string n, un, pa, permend;
     while (getline(Userfile, n))
     {
@@ -74,7 +74,7 @@ void loadUsers()
 
 void loadQuestions()
 {
-    fstream Qfile("/home/suffer/project 1/PV4/Questions.txt", ios::in);
+    fstream Qfile("Questions.txt", ios::in);
     string Qtype;
     while (getline(Qfile, Qtype))
     {
@@ -110,7 +110,7 @@ void loadQuestions()
 
 void unLoadUsers()
 {
-    fstream Userfile("/home/suffer/project 1/PV4/Users.txt", ios::out | ios::trunc);
+    fstream Userfile("Users.txt", ios::out | ios::trunc);
     Node<User> *temp = Gusers.returnHead()->next;
     for (int i = 0; temp != NULL; i++)
     {
@@ -131,7 +131,7 @@ void unLoadUsers()
 
 void unLoadQuestions()
 {
-    fstream Qfile("/home/suffer/project 1/PV4/Questions.txt", ios::out | ios::trunc);
+    fstream Qfile("Questions.txt", ios::out | ios::trunc);
     Node<Question> *temp = Gquestions.returnHead();
     while (temp != NULL)
     {

@@ -50,17 +50,17 @@ void Descriptive::print()
 void Descriptive::printAll()
 {
     Question *temp = Gquestions.give(0);
-    for (int i = 0; temp != NULL; i++)
+    for (int i = 1; temp != NULL; i++)
     {
         if (temp->TypeBack() == "descriptive")
         {
             if (isPublished)
             {
-                cout << "ID : " << i << endl;
+                cout << "ID : " << i - 1 << endl;
                 temp->print();
             }
             else
-                cout << "ID : " << i << "Not published\n";
+                cout << "ID : " << i - 1 << "Not published\n";
         }
         temp = Gquestions.give(i);
     }

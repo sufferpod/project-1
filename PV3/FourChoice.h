@@ -54,11 +54,11 @@ void FourChoice::printAll()
         {
             if (isPublished)
             {
-                cout << "ID : " << i << endl;
+                cout << "ID : " << i - 1 << endl;
                 temp->print();
             }
             else
-                cout << "ID : " << i << "Not published\n";
+                cout << "ID : " << i - 1 << "Not published\n";
         }
         temp = Gquestions.give(i);
     }

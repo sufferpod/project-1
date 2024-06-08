@@ -139,11 +139,11 @@ void printAllQ()
     Question *temp = Gquestions.give(0);
     for (int i = 1; temp != NULL; i++)
     {
-        cout << "ID: " << i << endl;
+        cout << "ID: " << i - 1 << endl;
         if (temp->isPublished)
             temp->print();
         else
-            cout << "Not published\n";
+            cout << cout << "ID: " << i - 1 << " Not published\n";
         cout << "---------------------------------\n";
         temp = Gquestions.give(i);
     }
