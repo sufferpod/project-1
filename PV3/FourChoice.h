@@ -47,8 +47,8 @@ void FourChoice::print()
 
 void FourChoice::printAll()
 {
-    int i = 0;
-    for (Question *temp = Gquestions.give(i); temp != NULL; i++)
+    Question *temp = Gquestions.give(0);
+    for (int i = 1; temp != NULL; i++)
     {
         if (temp->TypeBack() == "four-choice")
         {
@@ -60,6 +60,7 @@ void FourChoice::printAll()
             else
                 cout << "ID : " << i << "Not published\n";
         }
+        temp = Gquestions.give(i);
     }
 }
 

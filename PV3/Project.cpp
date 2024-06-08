@@ -1,3 +1,5 @@
+// AmirSadra Charmforushan
+// Mobina Miri
 #include <iostream>
 #include <ctype.h>
 #include "Structs.h"
@@ -124,10 +126,11 @@ void questionMenu()
              << "\t* Edit FourChoice Question(6)\n"
              << "\t* List of FourChoice Questions with ID(7)\n"
              << "\t* Print FourChoice Question(8)\n"
-             << "\t* view All Questions(9)\n"
-             << "\t* Add Tag to Question(10)\n"
-             << "\t* Publish a Question(11)\n"
-             << "\t* Unpublish a Question(12)\n"
+             << "\t* Add Tag to Question(9)\n"
+             << "\t* Publish a Question(10)\n"
+             << "\t* Unpublish a Question(11)\n"
+             << "\t* Delete a Question(12)\n"
+             << "\t* view All Questions(13)\n"
              << "\t* Exit(0)\n";
         cin >> choice;
         cin.ignore();
@@ -158,16 +161,19 @@ void questionMenu()
             PrintOneFourChoice();
             break;
         case 9:
-            printAllQ();
-            break;
-        case 10:
             addTagtoQuestion();
             break;
-        case 11:
+        case 10:
             publishQuestion();
             break;
-        case 12:
+        case 11:
             unPublishQuestion();
+            break;
+        case 12:
+            deleteQuestion();
+            break;
+        case 13:
+            printAllQ();
             break;
         }
         if (choice == 0)

@@ -108,20 +108,6 @@ void PrintOneFourChoice()
     Gquestions.give(ID)->print();
 }
 
-void printAllQ()
-{
-    int i = 0;
-    for (Question *temp = Gquestions.give(i); temp != NULL; i++)
-    {
-        cout << "ID: " << i << endl;
-        if (temp->isPublished)
-            temp->print();
-        else
-            cout << "Not published\n";
-        cout << "---------------------------------\n";
-    }
-}
-
 void addTagtoQuestion()
 {
     int IDQ, IDT;
@@ -146,6 +132,29 @@ void unPublishQuestion()
     cout << "Enter the ID of the Question you want to Unpublish: \n";
     cin >> ID;
     Gquestions.give(ID)->unpublish();
+}
+
+void printAllQ()
+{
+    Question *temp = Gquestions.give(0);
+    for (int i = 1; temp != NULL; i++)
+    {
+        cout << "ID: " << i << endl;
+        if (temp->isPublished)
+            temp->print();
+        else
+            cout << "Not published\n";
+        cout << "---------------------------------\n";
+        temp = Gquestions.give(i);
+    }
+}
+
+void deleteQuestion()
+{
+    int ID;
+    cout << "Enter the ID of the Question you want to Delete: \n";
+    cin >> ID;
+    Gquestions.remove(ID);
 }
 
 void addTag()

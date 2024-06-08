@@ -77,18 +77,13 @@ void linkedList<T>::remove(int nodeOffset)
     Node<T> *temp1 = head, *temp2 = NULL;
     int ListLen = 0;
 
-    if (head == NULL)
-    {
-        return;
-    }
-
     while (temp1 != NULL)
     {
         temp1 = temp1->next;
         ListLen++;
     }
 
-    if (ListLen < nodeOffset)
+    if (ListLen < nodeOffset || head == NULL)
     {
         return;
     }
