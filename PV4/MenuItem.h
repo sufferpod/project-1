@@ -140,7 +140,7 @@ void printAllQ()
     for (int i = 0; temp != NULL; i++)
     {
         cout << "ID: " << i << endl;
-        if (temp->data->isPublished)
+        if (temp->data->pubBack())
             temp->data->print();
         else
             cout << "Not published\n";
@@ -159,9 +159,9 @@ void deleteQuestion()
 
 void addTag()
 {
+    cin.clear();
     string temp;
     cout << "Enter the Tag you want to add: \n";
-    cin.ignore();
     getline(cin, temp);
     Tag::create(temp);
 }

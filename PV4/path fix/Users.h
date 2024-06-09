@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "linkedList.h"
+#include "LinkedList.h"
 #include "Permission.h"
 using namespace std;
 

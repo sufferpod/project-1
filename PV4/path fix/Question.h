@@ -1,14 +1,13 @@
 #pragma once
 #include <string>
 #include "Structs.h"
-#include "linkedList.h"
+#include "LinkedList.h"
 #include "Users.h"
 #include "Tag.h"
 using namespace std;
 
 class Question
 {
-    friend void printAllQ();
     friend void unLoadQuestions();
 
 public:
@@ -20,6 +19,7 @@ public:
     virtual Question *edit(string, DateTime, User, string, string, string, string, char) = 0;
     virtual Question *edit(string, DateTime, User) = 0;
     void addTag(Tag *);
+    bool pubBack();
     string TypeBack();
 
 protected:
@@ -40,6 +40,11 @@ void Question::addTag(Tag *tag)
             return;
     }
     tags[i] = tag;
+}
+
+bool Question::pubBack()
+{
+    return isPublished;
 }
 
 string Question::TypeBack()

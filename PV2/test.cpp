@@ -55,7 +55,7 @@ template <class T>
 void linkedList<T>::deleteNode(int ID)
 {
     Node<T> *temp1 = head, *temp2 = NULL;
-    int ListLen = 0;
+    int Depth = 0;
 
     if (head == NULL)
     {
@@ -65,10 +65,10 @@ void linkedList<T>::deleteNode(int ID)
     while (temp1 != NULL)
     {
         temp1 = temp1->next;
-        ListLen++;
+        Depth++;
     }
 
-    if (ListLen < ID)
+    if (Depth < ID)
     {
         return;
     }

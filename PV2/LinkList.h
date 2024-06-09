@@ -39,15 +39,15 @@ void linkedList<T>::append(T *data)
 template <class T>
 T *linkedList<T>::give(int ID)
 {
-    int ListLen = 0;
+    int Depth = 0;
     Node<T> *temp1 = head;
     while (temp1 != NULL)
     {
         temp1 = temp1->next;
-        ListLen++;
+        Depth++;
     }
 
-    if (ListLen < ID || head == NULL)
+    if (Depth < ID || head == NULL)
     {
         return NULL;
     }
@@ -72,7 +72,7 @@ template <class T>
 void linkedList<T>::remove(int nodeOffset)
 {
     Node<T> *temp1 = head, *temp2 = NULL;
-    int ListLen = 0;
+    int Depth = 0;
 
     if (head == NULL)
     {
@@ -82,10 +82,10 @@ void linkedList<T>::remove(int nodeOffset)
     while (temp1 != NULL)
     {
         temp1 = temp1->next;
-        ListLen++;
+        Depth++;
     }
 
-    if (ListLen < nodeOffset)
+    if (Depth < nodeOffset)
     {
         return;
     }

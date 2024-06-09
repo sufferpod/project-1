@@ -51,7 +51,7 @@ void FourChoice::printAll()
     {
         if (temp->data->TypeBack() == "four-choice")
         {
-            if (isPublished)
+            if (temp->data->pubBack())
             {
                 cout << "ID : " << i << endl;
                 temp->data->print();

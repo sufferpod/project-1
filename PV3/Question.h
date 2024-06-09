@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "Structs.h"
-#include "linkedList.h"
+#include "LinkedList.h"
 #include "Users.h"
 #include "Tag.h"
 using namespace std;

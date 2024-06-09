@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
-#include "linkedList.h"
+#include "LinkedList.h"
 #include "Permission.h"
 #include "Users.h"
 #include "Auth.h"

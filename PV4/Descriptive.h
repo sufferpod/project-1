@@ -53,7 +53,7 @@ void Descriptive::printAll()
     {
         if (temp->data->TypeBack() == "descriptive")
         {
-            if (isPublished)
+            if (temp->data->pubBack())
             {
                 cout << "ID : " << i << endl;
                 temp->data->print();
