@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "LinkList.h"
+#include "LinkedList.h"
 #include "Permission.h"
 using namespace std;
 
@@ -68,11 +68,13 @@ void User::print()
 
 void User::printAll()
 {
-    for (int i = 0; Gusers.give(i) != NULL; i++)
+    User *temp = Gusers.give(0);
+    for (int i = 1; Gusers.give(i) != NULL; i++)
     {
-        cout << "ID: " << i << endl;
-        Gusers.give(i)->print();
+        cout << "ID: " << i - 1 << endl;
+        temp->print();
     }
+    temp = Gusers.give(i);
 }
 
 bool User::checkAuth(string un, string pa)

@@ -8,6 +8,8 @@ using namespace std;
 
 class Question
 {
+    friend void unLoadQuestions();
+
 public:
     Question(string Qu, string ty, DateTime ti, User us) : question(Qu), type(ty), createdAt(ti), user(us) {}
     void publish() { isPublished = true; }
@@ -17,6 +19,7 @@ public:
     virtual Question *edit(string, DateTime, User, string, string, string, string, char) = 0;
     virtual Question *edit(string, DateTime, User) = 0;
     void addTag(Tag *);
+    bool pubBack();
     string TypeBack();
 
 protected:
@@ -33,11 +36,15 @@ void Question::addTag(Tag *tag)
     int i = 0;
     for (; tags[i] != NULL; i++)
     {
-        if (tags[i]->veiwTitle() == tag->veiwTitle())
-            break;
+        if (tags[i] == tag)
+            return;
     }
-    if (tags[i] == NULL)
-        tags[i] = tag;
+    tags[i] = tag;
+}
+
+bool Question::pubBack()
+{
+    return isPublished;
 }
 
 string Question::TypeBack()

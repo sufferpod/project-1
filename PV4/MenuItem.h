@@ -7,7 +7,7 @@ using namespace std;
 
 void createDescriptiveQ()
 {
-    cin.ignore();
+    cin.clear();
     string question;
     cout << "Enter the Question: \n";
     getline(cin, question);
@@ -49,7 +49,7 @@ void PrintOneDescriptive()
 
 void createFourChoiceQ()
 {
-    cin.ignore();
+    cin.clear();
     string question;
     cout << "Enter the Question: \n";
     getline(cin, question);
@@ -136,16 +136,16 @@ void unPublishQuestion()
 
 void printAllQ()
 {
-    Question *temp = Gquestions.give(0);
-    for (int i = 1; temp != NULL; i++)
+    Node<Question> *temp = Gquestions.returnHead();
+    for (int i = 0; temp != NULL; i++)
     {
-        cout << "ID: " << i - 1 << endl;
-        if (temp->isPublished)
-            temp->print();
+        cout << "ID: " << i << endl;
+        if (temp->data->pubBack())
+            temp->data->print();
         else
-            cout << cout << "ID: " << i - 1 << " Not published\n";
+            cout << "Not published\n";
         cout << "---------------------------------\n";
-        temp = Gquestions.give(i);
+        temp = temp->next;
     }
 }
 
@@ -159,16 +159,16 @@ void deleteQuestion()
 
 void addTag()
 {
+    cin.clear();
     string temp;
     cout << "Enter the Tag you want to add: \n";
-    cin.ignore();
     getline(cin, temp);
     Tag::create(temp);
 }
 
 void addUser()
 {
-    cin.ignore();
+    cin.clear();
     string n, un, pa;
     cout << "Enter Name:\n";
     getline(cin, n);

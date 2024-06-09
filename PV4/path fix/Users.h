@@ -6,6 +6,9 @@ using namespace std;
 
 class User
 {
+    friend void unLoadUsers();
+    friend void unLoadQuestions();
+
 private:
     string name, username, password;
     Permission *permissions[100] = {NULL};
@@ -47,32 +50,30 @@ void User::addpermission(Permission *permission)
     int i = 0;
     for (; permissions[i] != NULL; i++)
     {
-        if (permissions[i]->viewTitle() == permission->viewTitle())
-        {
-            break;
-        }
+        if (permissions[i] == permission)
+            return;
     }
-
-    if (permissions[i] == NULL)
-    {
-        permissions[i] = permission;
-    }
+    permissions[i] = permission;
 }
 
 void User::print()
 {
     cout << "Name: " << name
          << "\nUser name: " << username
-         << "\nPassword: " << password << endl;
+         << "\nPassword: " << password
+         << "\nPermissions: \n";
+    for (int i = 0; permissions[i] != NULL; i++)
+        permissions[i]->print();
 }
 
 void User::printAll()
 {
-    for (int i = 0; Gusers.give(i) != NULL; i++)
+    Node<User> *temp = Gusers.returnHead();
+    for (int i = 0; temp != NULL; i++)
     {
         cout << "ID: " << i << endl;
-        Gusers.give(i)->print();
-        cout << endl;
+        temp->data->print();
+        temp = temp->next;
     }
 }
 
@@ -88,9 +89,7 @@ bool User::checkPermTi(string ti)
     for (int i = 0; permissions[i] != NULL; i++)
     {
         if (permissions[i]->viewTitle() == ti)
-        {
             return true;
-        }
     }
     return false;
 }

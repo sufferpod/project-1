@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "LinkList.h"
+#include "LinkedList.h"
 using namespace std;
 
 class Permission
@@ -25,10 +25,12 @@ Permission *Permission::create(string ti)
 {
     Permission *x = new Permission(ti);
     int i = 0;
-    for (Permission *temp = Gpermissions.give(i); temp != NULL; i++)
+    Permission *temp = Gpermissions.give(0);
+    for (int i = 1; temp != NULL; i++)
     {
         if (temp->title == x->title)
             return NULL;
+        temp = Gpermissions.give(i);
     }
     Gpermissions.append(x);
     return x;

@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "LinkList.h"
+#include "LinkedList.h"
 
 using namespace std;
 

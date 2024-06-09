@@ -24,18 +24,14 @@ linkedList<Permission> Gpermissions;
 Permission *Permission::create(string ti)
 {
     Permission *x = new Permission(ti);
-    int i = 0;
-    for (; Gpermissions.give(i) != NULL; i++)
+    Node<Permission> *temp = Gpermissions.returnHead();
+    while (temp != NULL)
     {
-        if (Gpermissions.give(i)->title == x->title)
-        {
-            break;
-        }
+        if (temp->data->title == x->title)
+            return NULL;
+        temp = temp->next;
     }
-    if (Gpermissions.give(i) == NULL)
-    {
-        Gpermissions.append(x);
-    }
+    Gpermissions.append(x);
     return x;
 }
 

@@ -14,15 +14,15 @@ public:
 
 User *Auth::login(string username, string password)
 {
-    User *temp = Gusers.give(0);
-    for (int i = 1; temp != NULL; i++)
+    Node<User> *temp = Gusers.returnHead();
+    while (temp != NULL)
     {
-        if (temp->checkAuth(username, password))
+        if (temp->data->checkAuth(username, password))
         {
-            auth = temp;
-            return temp;
+            auth = temp->data;
+            return temp->data;
         }
-        temp = Gusers.give(i);
+        temp = temp->next;
     }
     return NULL;
 }

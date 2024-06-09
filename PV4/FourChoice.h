@@ -34,8 +34,7 @@ void FourChoice::print()
          << "D) " << D << endl;
     cout << "Created at: " << createdAt.year << '/' << createdAt.month << '/' << createdAt.day
          << ' ' << createdAt.hour << ':' << createdAt.minute << ':' << createdAt.second << endl
-         << "by user: \n";
-    user.print();
+         << "by user: " << user.myName() << endl;
     cout << "Tags: ";
     for (int i = 0; tags[i] != NULL; i++)
     {
@@ -47,20 +46,20 @@ void FourChoice::print()
 
 void FourChoice::printAll()
 {
-    Question *temp = Gquestions.give(0);
-    for (int i = 1; temp != NULL; i++)
+    Node<Question> *temp = Gquestions.returnHead();
+    for (int i = 0; temp != NULL; i++)
     {
-        if (temp->TypeBack() == "four-choice")
+        if (temp->data->TypeBack() == "four-choice")
         {
-            if (isPublished)
+            if (temp->data->pubBack())
             {
-                cout << "ID : " << i - 1 << endl;
-                temp->print();
+                cout << "ID : " << i << endl;
+                temp->data->print();
             }
             else
-                cout << "ID : " << i - 1 << "Not published\n";
+                cout << "ID : " << i << "Not published\n";
         }
-        temp = Gquestions.give(i);
+        temp = temp->next;
     }
 }
 
