@@ -21,7 +21,6 @@ linkedList<Tag> Gtags;
 
 Tag *Tag::create(string ti)
 {
-    Tag *tempT = new Tag(ti);
     Node<Tag> *temp = Gtags.returnHead();
     for (int i = 0; temp != NULL; i++)
     {
@@ -29,6 +28,7 @@ Tag *Tag::create(string ti)
             return NULL;
         temp = temp->next;
     }
+    Tag *tempT = new Tag(ti);
     Gtags.append(tempT);
     return tempT;
 }

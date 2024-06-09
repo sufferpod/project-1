@@ -74,7 +74,7 @@ Question *FourChoice::edit(string question, DateTime createdAt, User user, strin
         this->C = C;
         this->D = D;
         this->answer = answer;
-        return new FourChoice(question, createdAt, user, A, B, C, D, answer);
+        return this;
     }
     else
     {
@@ -89,8 +89,8 @@ FourChoice *FourChoice::create(string question, DateTime createdAt, User user, s
     if (Auth::whoami()->checkPermTi("add-four-choice-question"))
     {
         FourChoice *x = new FourChoice(question, createdAt, user, A, B, C, D, answer);
-        Gquestions.append(x);
         x->publish();
+        Gquestions.append(x);
         return x;
     }
     else

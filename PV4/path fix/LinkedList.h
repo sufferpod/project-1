@@ -18,6 +18,17 @@ public:
         head = NULL;
         tail = NULL;
     }
+
+    ~linkedList()
+    {
+        while (head != NULL)
+        {
+            Node<T> *Next = head->next;
+            delete head;
+            head = Next;
+        }
+    }
+
     Node<T> *returnHead() { return head; }
     void append(T *);
     T *give(int);

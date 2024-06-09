@@ -59,7 +59,7 @@ void Descriptive::printAll()
                 temp->data->print();
             }
             else
-                cout << "ID: " << i << " Not published\n";
+                cout << "ID: " << i << "Not published\n";
         }
         temp = temp->next;
     }
@@ -70,8 +70,8 @@ Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
     if (Auth::whoami()->checkPermTi("add-descriptive-question"))
     {
         Descriptive *x = new Descriptive(question, createdAt, user);
-        Gquestions.append(x);
         x->publish();
+        Gquestions.append(x);
         return x;
     }
     else
@@ -90,7 +90,7 @@ Question *Descriptive::edit(string question, DateTime createdAt, User user)
         this->question = question;
         this->createdAt = createdAt;
         this->user = user;
-        return new Descriptive(question, createdAt, user);
+        return this;
     }
     else
     {

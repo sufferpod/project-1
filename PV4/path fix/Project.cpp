@@ -248,10 +248,9 @@ void userMenu()
 
 void boot()
 {
-
     for (int i = 0; i < 5; i++)
     {
-        Gpermissions.append(new Permission(basicperm[i]));
+        Permission::create(basicperm[i]);
     }
     loadUsers();
     loadQuestions();

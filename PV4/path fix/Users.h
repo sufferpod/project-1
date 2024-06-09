@@ -28,11 +28,11 @@ linkedList<User> Gusers;
 
 User *User::create(string n, string un, string pa, User *ami)
 {
-    User *x = new User(n, un, pa);
     if (ami->checkPermTi("add-user"))
     {
         if (!ami->checkAuth(un, pa))
         {
+            User *x = new User(n, un, pa);
             Gusers.append(x);
             return x;
         }

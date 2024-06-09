@@ -20,12 +20,11 @@ void clear()
 template <class T>
 void finalDelete(Node<T> *head)
 {
-    Node<T> *temp = head;
     while (head != NULL)
     {
-        Node<T> *temp = head;
-        head = head->next;
-        delete temp;
+        Node<T> *Next = head->next;
+        delete head->data;
+        head = Next;
     }
 }
 

@@ -159,7 +159,6 @@ void deleteQuestion()
 
 void addTag()
 {
-    cin.clear();
     string temp;
     cout << "Enter the Tag you want to add: \n";
     getline(cin, temp);
