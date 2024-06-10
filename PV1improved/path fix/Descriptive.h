@@ -88,12 +88,15 @@ void Descriptive::printAll()
 {
     for (int i = 0; Gquestions[i] != NULL; i++)
     {
-        if (Gquestions[i]->TypeBack() == "descriptive" && Gquestions[i]->pubBack())
+        if (Gquestions[i]->TypeBack() == "descriptive")
         {
-            cout << "ID : " << i << endl;
-            Gquestions[i]->print();
+            if (Gquestions[i]->pubBack())
+            {
+                cout << "ID : " << i << endl;
+                Gquestions[i]->print();
+            }
+            else
+                cout << "ID: " << i << " Not published\n";
         }
-        else
-            cout << "ID: " << i << "Not published\n";
     }
 }

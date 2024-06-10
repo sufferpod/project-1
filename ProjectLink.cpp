@@ -474,13 +474,16 @@ void Descriptive::printAll()
     Node<Question> *temp = Gquestions.returnHead();
     for (int i = 0; temp != NULL; i++)
     {
-        if (temp->data->TypeBack() == "descriptive" && temp->data->pubBack())
+        if (temp->data->TypeBack() == "descriptive")
         {
-            cout << "ID : " << i << endl;
-            temp->data->print();
+            if (temp->data->pubBack())
+            {
+                cout << "ID : " << i << endl;
+                temp->data->print();
+            }
+            else
+                cout << "ID: " << i << " Not published\n";
         }
-        else
-            cout << "ID: " << i << "Not published\n";
         temp = temp->next;
     }
 }
@@ -564,13 +567,16 @@ void FourChoice::printAll()
     Node<Question> *temp = Gquestions.returnHead();
     for (int i = 0; temp != NULL; i++)
     {
-        if (temp->data->TypeBack() == "four-choice" && temp->data->pubBack())
+        if (temp->data->TypeBack() == "four-choice")
         {
-            cout << "ID : " << i << endl;
-            temp->data->print();
+            if (temp->data->pubBack())
+            {
+                cout << "ID : " << i << endl;
+                temp->data->print();
+            }
+            else
+                cout << "ID: " << i << " Not published\n";
         }
-        else
-            cout << "ID : " << i << "Not published\n";
         temp = temp->next;
     }
 }

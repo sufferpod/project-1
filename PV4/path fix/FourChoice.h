@@ -93,7 +93,7 @@ void FourChoice::printAll()
                 temp->data->print();
             }
             else
-                cout << "ID : " << i << "Not published\n";
+                cout << "ID : " << i << " Not published\n";
         }
         temp = temp->next;
     }
