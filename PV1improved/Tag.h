@@ -17,20 +17,19 @@ public:
     static void printAll();
 };
 
-linkedList<Tag> Gtags;
+Tag *Gtags[100] = {NULL};
 
 Tag *Tag::create(string ti)
 {
-    Node<Tag> *temp = Gtags.returnHead();
-    while (temp != NULL)
+    Tag *temp = new Tag(ti);
+    int i = 0;
+    for (; Gtags[i] != NULL; i++)
     {
-        if (temp->data->veiwTitle() == ti)
+        if (Gtags[i]->veiwTitle() == ti)
             return NULL;
-        temp = temp->next;
     }
-    Tag *tempT = new Tag(ti);
-    Gtags.append(tempT);
-    return tempT;
+    Gtags[i] = temp;
+    return temp;
 }
 
 string Tag::veiwTitle()
@@ -46,12 +45,10 @@ void Tag::print()
 void Tag::printAll()
 {
     cout << "tags: \n";
-    Node<Tag> *temp = Gtags.returnHead();
-    for (int i = 0; temp != NULL; i++)
+    for (int i = 0; Gtags[i] != NULL; i++)
     {
         cout << "ID: " << i << endl;
-        temp->data->print();
-        temp = temp->next;
+        Gtags[i]->print();
     }
     cout << endl;
 }

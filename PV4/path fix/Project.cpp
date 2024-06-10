@@ -190,8 +190,8 @@ void tagMenu()
     while (true)
     {
         cout << "Tag Menu\n";
-        cout << "\t*List of Tags with ID(1)\n"
-             << "\t*Create New Tag(2)\n"
+        cout << "\t* List of Tags with ID(1)\n"
+             << "\t* Create New Tag(2)\n"
              << "\t* Exit(0)\n";
 
         cin >> choice;
@@ -219,9 +219,9 @@ void userMenu()
     while (true)
     {
         cout << "User Menu\n";
-        cout << "\t*List of Users with ID(1)\n"
-             << "\t*Create New User(2)\n"
-             << "\t*Add permission to a user(3)\n"
+        cout << "\t* List of Users with ID(1)\n"
+             << "\t* Create New User(2)\n"
+             << "\t* Add permission to a user(3)\n"
              << "\t* Exit(0)\n";
 
         cin >> choice;

@@ -28,8 +28,13 @@ Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
     if (Auth::whoami()->checkPermTi("add-descriptive-question"))
     {
         Descriptive *x = new Descriptive(question, createdAt, user);
+        int i = 0;
+        for (; Gquestions[i] != NULL; i++)
+        {
+            ;
+        }
         x->publish();
-        Gquestions.append(x);
+        Gquestions[i] = x;
         return x;
     }
     else
@@ -81,16 +86,14 @@ void Descriptive::print()
 
 void Descriptive::printAll()
 {
-    Node<Question> *temp = Gquestions.returnHead();
-    for (int i = 0; temp != NULL; i++)
+    for (int i = 0; Gquestions[i] != NULL; i++)
     {
-        if (temp->data->TypeBack() == "descriptive" && temp->data->pubBack())
+        if (Gquestions[i]->TypeBack() == "descriptive" && Gquestions[i]->pubBack())
         {
             cout << "ID : " << i << endl;
-            temp->data->print();
+            Gquestions[i]->print();
         }
         else
             cout << "ID: " << i << "Not published\n";
-        temp = temp->next;
     }
 }

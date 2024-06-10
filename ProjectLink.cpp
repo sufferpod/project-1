@@ -202,14 +202,11 @@ linkedList<User> Gusers;
 
 User *User::create(string n, string un, string pa, User *ami)
 {
-    if (ami->checkPermTi("add-user"))
+    if (ami->checkPermTi("add-user") && !ami->checkAuth(un, pa))
     {
-        if (!ami->checkAuth(un, pa))
-        {
-            User *x = new User(n, un, pa);
-            Gusers.append(x);
-            return x;
-        }
+        User *x = new User(n, un, pa);
+        Gusers.append(x);
+        return x;
     }
     else
     {
@@ -317,7 +314,7 @@ linkedList<Tag> Gtags;
 Tag *Tag::create(string ti)
 {
     Node<Tag> *temp = Gtags.returnHead();
-    for (int i = 0; temp != NULL; i++)
+    while (temp != NULL)
     {
         if (temp->data->veiwTitle() == ti)
             return NULL;
@@ -335,7 +332,7 @@ string Tag::veiwTitle()
 
 void Tag::print()
 {
-    cout << title << endl;
+    cout << title;
 }
 
 void Tag::printAll()
@@ -477,16 +474,13 @@ void Descriptive::printAll()
     Node<Question> *temp = Gquestions.returnHead();
     for (int i = 0; temp != NULL; i++)
     {
-        if (temp->data->TypeBack() == "descriptive")
+        if (temp->data->TypeBack() == "descriptive" && temp->data->pubBack())
         {
-            if (temp->data->pubBack())
-            {
-                cout << "ID : " << i << endl;
-                temp->data->print();
-            }
-            else
-                cout << "ID: " << i << "Not published\n";
+            cout << "ID : " << i << endl;
+            temp->data->print();
         }
+        else
+            cout << "ID: " << i << "Not published\n";
         temp = temp->next;
     }
 }
@@ -570,16 +564,13 @@ void FourChoice::printAll()
     Node<Question> *temp = Gquestions.returnHead();
     for (int i = 0; temp != NULL; i++)
     {
-        if (temp->data->TypeBack() == "four-choice")
+        if (temp->data->TypeBack() == "four-choice" && temp->data->pubBack())
         {
-            if (temp->data->pubBack())
-            {
-                cout << "ID : " << i << endl;
-                temp->data->print();
-            }
-            else
-                cout << "ID : " << i << "Not published\n";
+            cout << "ID : " << i << endl;
+            temp->data->print();
         }
+        else
+            cout << "ID : " << i << "Not published\n";
         temp = temp->next;
     }
 }
@@ -783,8 +774,8 @@ void tagMenu()
     while (true)
     {
         cout << "Tag Menu\n";
-        cout << "\t*List of Tags with ID(1)\n"
-             << "\t*Create New Tag(2)\n"
+        cout << "\t* List of Tags with ID(1)\n"
+             << "\t* Create New Tag(2)\n"
              << "\t* Exit(0)\n";
 
         cin >> choice;
@@ -812,9 +803,9 @@ void userMenu()
     while (true)
     {
         cout << "User Menu\n";
-        cout << "\t*List of Users with ID(1)\n"
-             << "\t*Create New User(2)\n"
-             << "\t*Add permission to a user(3)\n"
+        cout << "\t* List of Users with ID(1)\n"
+             << "\t* Create New User(2)\n"
+             << "\t* Add permission to a user(3)\n"
              << "\t* Exit(0)\n";
 
         cin >> choice;
@@ -893,7 +884,7 @@ void printDQ()
 void PrintOneDescriptive()
 {
     int ID;
-    cout << " Enter the ID of the Question you want to print: \n";
+    cout << "Enter the ID of the Question you want to print: \n";
     cin >> ID;
     Gquestions.give(ID)->print();
 }

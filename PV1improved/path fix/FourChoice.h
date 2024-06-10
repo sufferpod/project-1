@@ -28,8 +28,13 @@ FourChoice *FourChoice::create(string question, DateTime createdAt, User user, s
     if (Auth::whoami()->checkPermTi("add-four-choice-question"))
     {
         FourChoice *x = new FourChoice(question, createdAt, user, A, B, C, D, answer);
+        int i = 0;
+        for (; Gquestions[i] != NULL; i++)
+        {
+            ;
+        }
         x->publish();
-        Gquestions.append(x);
+        Gquestions[i] = x;
         return x;
     }
     else
@@ -82,16 +87,14 @@ void FourChoice::print()
 
 void FourChoice::printAll()
 {
-    Node<Question> *temp = Gquestions.returnHead();
-    for (int i = 0; temp != NULL; i++)
+    for (int i = 0; Gquestions[i] != NULL; i++)
     {
-        if (temp->data->TypeBack() == "four-choice" && temp->data->pubBack())
+        if (Gquestions[i]->TypeBack() == "four-choice" && Gquestions[i]->pubBack())
         {
             cout << "ID : " << i << endl;
-            temp->data->print();
+            Gquestions[i]->print();
         }
         else
-            cout << "ID : " << i << "Not published\n";
-        temp = temp->next;
+            cout << "ID: " << i << "Not published\n";
     }
 }

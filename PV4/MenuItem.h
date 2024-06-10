@@ -103,7 +103,7 @@ void printFQ()
 void PrintOneFourChoice()
 {
     int ID;
-    cout << " Enter the ID of the Question you want to print: \n";
+    cout << "Enter the ID of the Question you want to print: \n";
     cin >> ID;
     Gquestions.give(ID)->print();
 }
@@ -181,7 +181,7 @@ void addUser()
 void addPermission2User()
 {
     int ID;
-    cout << "enter the ID of the User you want to add permission to: \n";
+    cout << "Enter the ID of the User you want to add permission to: \n";
     cin >> ID;
     int p;
     cout << "What permission do you want to add?\n"

@@ -5,6 +5,19 @@
 #include "Descriptive.h"
 using namespace std;
 
+void printAllQ()
+{
+    for (int i = 0; Gquestions[i] != NULL; i++)
+    {
+        cout << "ID: " << i << endl;
+        if (Gquestions[i]->pubBack())
+            Gquestions[i]->print();
+        else
+            cout << "Not published\n";
+        cout << "---------------------------------\n";
+    }
+}
+
 void createDescriptiveQ()
 {
     cin.clear();
@@ -29,7 +42,7 @@ void editDescriptiveQ()
     DateTime temp;
     cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
     cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-    Gquestions.give(ID)->edit(question, temp, *Auth::whoami());
+    Gquestions[ID]->edit(question, temp, *Auth::whoami());
 }
 
 void printDQ()
@@ -42,9 +55,9 @@ void printDQ()
 void PrintOneDescriptive()
 {
     int ID;
-    cout << "Enter the ID of the Question you want to print: \n";
+    cout << " Enter the ID of the Question you want to print: \n";
     cin >> ID;
-    Gquestions.give(ID)->print();
+    Gquestions[ID]->print();
 }
 
 void createFourChoiceQ()
@@ -89,7 +102,7 @@ void editFourChoiceQ()
     DateTime temp;
     cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
     cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
-    Gquestions.give(ID)->edit(question, temp, *Auth::whoami(), a, b, c, d, ans);
+    Gquestions[ID]->edit(question, temp, *Auth::whoami(), a, b, c, d, ans);
 }
 
 void printFQ()
@@ -103,9 +116,9 @@ void printFQ()
 void PrintOneFourChoice()
 {
     int ID;
-    cout << " Enter the ID of the Question you want to print: \n";
+    cout << "Enter the ID of the Question you want to print: \n";
     cin >> ID;
-    Gquestions.give(ID)->print();
+    Gquestions[ID]->print();
 }
 
 void addTagtoQuestion()
@@ -115,7 +128,7 @@ void addTagtoQuestion()
     cin >> IDQ;
     cout << "Enter the ID of the Tag you want to add: \n";
     cin >> IDT;
-    Gquestions.give(IDQ)->addTag(Gtags.give(IDT));
+    Gquestions[IDQ]->addTag(Gtags[IDT]);
 }
 
 void publishQuestion()
@@ -123,7 +136,7 @@ void publishQuestion()
     int ID;
     cout << "Enter the ID of the Question you want to Publish: \n";
     cin >> ID;
-    Gquestions.give(ID)->publish();
+    Gquestions[ID]->publish();
 }
 
 void unPublishQuestion()
@@ -131,22 +144,7 @@ void unPublishQuestion()
     int ID;
     cout << "Enter the ID of the Question you want to Unpublish: \n";
     cin >> ID;
-    Gquestions.give(ID)->unpublish();
-}
-
-void printAllQ()
-{
-    Node<Question> *temp = Gquestions.returnHead();
-    for (int i = 0; temp != NULL; i++)
-    {
-        cout << "ID: " << i << endl;
-        if (temp->data->pubBack())
-            temp->data->print();
-        else
-            cout << "Not published\n";
-        cout << "---------------------------------\n";
-        temp = temp->next;
-    }
+    Gquestions[ID]->unpublish();
 }
 
 void deleteQuestion()
@@ -154,7 +152,7 @@ void deleteQuestion()
     int ID;
     cout << "Enter the ID of the Question you want to Delete: \n";
     cin >> ID;
-    Gquestions.remove(ID);
+    Question::remove(ID);
 }
 
 void addTag()
@@ -191,5 +189,5 @@ void addPermission2User()
          << "edit-four-choice-question(4)\n"
          << "add-user(5)\n";
     cin >> p;
-    Gusers.give(ID)->addpermission(Gpermissions.give(p - 1));
+    Gusers[ID]->addpermission(Gpermissions[p - 1]);
 }
