@@ -104,7 +104,7 @@ void loadQuestions()
 void unLoadUsers()
 {
     fstream Userfile("/home/suffer/project 1/PV1improved/Users.txt", ios::out | ios::trunc);
-    for (int i = 0; Gusers[i] != NULL; i++)
+    for (int i = 1; Gusers[i] != NULL; i++)
     {
         Userfile << Gusers[i]->name << endl
                  << Gusers[i]->username << endl
@@ -154,7 +154,7 @@ void unLoadQuestions()
                   << endl;
             Qfile << Gquestions[i]->user.name << endl
                   << Gquestions[i]->user.username << endl
-                  << Gquestions[i]->user.password;
+                  << Gquestions[i]->user.password << endl;
             Qfile << temp->A << endl
                   << temp->B << endl
                   << temp->C << endl
