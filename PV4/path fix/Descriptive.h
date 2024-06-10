@@ -11,7 +11,7 @@ class Descriptive : public Question
     friend void unLoadQuestions();
 
 public:
-    Descriptive(string qu, DateTime cr, User us);
+    Descriptive(string qu, DateTime cr, User us) : Question(qu, "descriptive", cr, us) {}
     void AddAnswer(string ans);
     void print();
     void printAll();
@@ -23,7 +23,40 @@ private:
     string answer;
 };
 
-Descriptive::Descriptive(string qu, DateTime cr, User us) : Question(qu, "descriptive", cr, us) {}
+Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
+{
+    if (Auth::whoami()->checkPermTi("add-descriptive-question"))
+    {
+        Descriptive *x = new Descriptive(question, createdAt, user);
+        x->publish();
+        Gquestions.append(x);
+        return x;
+    }
+    else
+    {
+        cout << "You don't have the \"add-descriptive-question\" permission\n";
+        return NULL;
+    }
+    return NULL;
+}
+
+Question *Descriptive::edit(string, DateTime, User, string, string, string, string, char) { return NULL; }
+Question *Descriptive::edit(string question, DateTime createdAt, User user)
+{
+    if (Auth::whoami()->checkPermTi("edit-descriptive-question"))
+    {
+        this->question = question;
+        this->createdAt = createdAt;
+        this->user = user;
+        return this;
+    }
+    else
+    {
+        cout << "You don't have the \"edit-descriptive-question\" permission\n";
+        return NULL;
+    }
+    return NULL;
+}
 
 void Descriptive::AddAnswer(string ans)
 {
@@ -63,39 +96,4 @@ void Descriptive::printAll()
         }
         temp = temp->next;
     }
-}
-
-Descriptive *Descriptive::create(string question, DateTime createdAt, User user)
-{
-    if (Auth::whoami()->checkPermTi("add-descriptive-question"))
-    {
-        Descriptive *x = new Descriptive(question, createdAt, user);
-        x->publish();
-        Gquestions.append(x);
-        return x;
-    }
-    else
-    {
-        cout << "You don't have the \"add-descriptive-question\" permission\n";
-        return NULL;
-    }
-    return NULL;
-}
-
-Question *Descriptive::edit(string, DateTime, User, string, string, string, string, char) { return NULL; }
-Question *Descriptive::edit(string question, DateTime createdAt, User user)
-{
-    if (Auth::whoami()->checkPermTi("edit-descriptive-question"))
-    {
-        this->question = question;
-        this->createdAt = createdAt;
-        this->user = user;
-        return this;
-    }
-    else
-    {
-        cout << "You don't have the \"edit-descriptive-question\" permission\n";
-        return NULL;
-    }
-    return NULL;
 }
