@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include "Structs.h"
-#include "LinkedList.h"
 #include "Users.h"
 #include "Tag.h"
 using namespace std;
@@ -18,6 +17,7 @@ public:
     virtual void printAll() = 0;
     virtual Question *edit(string, DateTime, User, string, string, string, string, char) = 0;
     virtual Question *edit(string, DateTime, User) = 0;
+    virtual void addAnswer(string) = 0;
     void addTag(Tag *);
     bool pubBack();
     string TypeBack();

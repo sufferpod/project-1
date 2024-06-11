@@ -32,6 +32,18 @@ void editDescriptiveQ()
     Gquestions.give(ID)->edit(question, temp, *Auth::whoami());
 }
 
+void addAnswertoDQ()
+{
+    int ID;
+    cout << "Enter the ID of the Question you want to Add Answer to: \n";
+    cin >> ID;
+    cin.ignore();
+    string answer;
+    cout << "Enter the Anwer you want to add\n";
+    getline(cin, answer);
+    Gquestions.give(ID)->addAnswer(answer);
+}
+
 void printDQ()
 {
     Question *x = new Descriptive("0", {0, 0, 0, 0, 0, 0}, User("0", "0", "0"));

@@ -12,7 +12,7 @@ class Descriptive : public Question
 
 public:
     Descriptive(string qu, DateTime cr, User us) : Question(qu, "descriptive", cr, us) {}
-    void AddAnswer(string ans);
+    void addAnswer(string ans);
     void print();
     void printAll();
     static Descriptive *create(string question, DateTime createdAt, User user);
@@ -63,7 +63,7 @@ Question *Descriptive::edit(string question, DateTime createdAt, User user)
     return NULL;
 }
 
-void Descriptive::AddAnswer(string ans)
+void Descriptive::addAnswer(string ans)
 {
     answer = ans;
 }

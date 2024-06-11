@@ -360,6 +360,7 @@ public:
     virtual void printAll() = 0;
     virtual Question *edit(string, DateTime, User, string, string, string, string, char) = 0;
     virtual Question *edit(string, DateTime, User) = 0;
+    virtual void addAnswer(string) = 0;
     void addTag(Tag *);
     bool pubBack();
     string TypeBack();
@@ -402,7 +403,7 @@ class Descriptive : public Question
 
 public:
     Descriptive(string qu, DateTime cr, User us) : Question(qu, "descriptive", cr, us) {}
-    void AddAnswer(string ans);
+    void addAnswer(string ans);
     void print();
     void printAll();
     static Descriptive *create(string question, DateTime createdAt, User user);
@@ -448,7 +449,7 @@ Question *Descriptive::edit(string question, DateTime createdAt, User user)
     return NULL;
 }
 
-void Descriptive::AddAnswer(string ans)
+void Descriptive::addAnswer(string ans)
 {
     answer = ans;
 }
@@ -498,6 +499,7 @@ public:
     void printAll();
     Question *edit(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer) override;
     Question *edit(string, DateTime, User);
+    void addAnswer(string) {}
     static FourChoice *create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer);
 
 private:
@@ -590,6 +592,7 @@ void loginTMenu();
 void loginFMenu();
 void createDescriptiveQ();
 void editDescriptiveQ();
+void addAnswertoDQ();
 void printDQ();
 void PrintOneDescriptive();
 void createFourChoiceQ();
@@ -710,17 +713,18 @@ void questionMenu()
         cout << "Question Menu\n";
         cout << "\t* Create Descriptive Question(1)\n"
              << "\t* Edit Descriptive Question(2)\n"
-             << "\t* List of Descriptive Questions with ID(3)\n"
-             << "\t* Print Descriptive Question(4)\n"
-             << "\t* Create FourChoice Question(5)\n"
-             << "\t* Edit FourChoice Question(6)\n"
-             << "\t* List of FourChoice Questions with ID(7)\n"
-             << "\t* Print FourChoice Question(8)\n"
-             << "\t* Add Tag to Question(9)\n"
-             << "\t* Publish a Question(10)\n"
-             << "\t* Unpublish a Question(11)\n"
-             << "\t* Delete a Question(12)\n"
-             << "\t* view All Questions(13)\n"
+             << "\t* Add Answer to Descriptive Question(3)\n"
+             << "\t* List of Descriptive Questions with ID(4)\n"
+             << "\t* Print Descriptive Question(5)\n"
+             << "\t* Create FourChoice Question(6)\n"
+             << "\t* Edit FourChoice Question(7)\n"
+             << "\t* List of FourChoice Questions with ID(8)\n"
+             << "\t* Print FourChoice Question(9)\n"
+             << "\t* Add Tag to Question(10)\n"
+             << "\t* Publish a Question(11)\n"
+             << "\t* Unpublish a Question(12)\n"
+             << "\t* Delete a Question(13)\n"
+             << "\t* view All Questions(14)\n"
              << "\t* Exit(0)\n";
         cin >> choice;
         cin.ignore();
@@ -733,36 +737,39 @@ void questionMenu()
             editDescriptiveQ();
             break;
         case 3:
-            printDQ();
+            addAnswertoDQ();
             break;
         case 4:
-            PrintOneDescriptive();
+            printDQ();
             break;
         case 5:
-            createFourChoiceQ();
+            PrintOneDescriptive();
             break;
         case 6:
-            editFourChoiceQ();
+            createFourChoiceQ();
             break;
         case 7:
-            printFQ();
+            editFourChoiceQ();
             break;
         case 8:
-            PrintOneFourChoice();
+            printFQ();
             break;
         case 9:
-            addTagtoQuestion();
+            PrintOneFourChoice();
             break;
         case 10:
-            publishQuestion();
+            addTagtoQuestion();
             break;
         case 11:
-            unPublishQuestion();
+            publishQuestion();
             break;
         case 12:
-            deleteQuestion();
+            unPublishQuestion();
             break;
         case 13:
+            deleteQuestion();
+            break;
+        case 14:
             printAllQ();
             break;
         }
@@ -878,6 +885,18 @@ void editDescriptiveQ()
     cout << "\nEnter time of Creation in this format Y/M/D H:M:S: \n";
     cin >> temp.year >> temp.month >> temp.day >> temp.hour >> temp.minute >> temp.second;
     Gquestions.give(ID)->edit(question, temp, *Auth::whoami());
+}
+
+void addAnswertoDQ()
+{
+    int ID;
+    cout << "Enter the ID of the Question you want to Add Answer to: \n";
+    cin >> ID;
+    cin.ignore();
+    string answer;
+    cout << "Enter the Anwer you want to add\n";
+    getline(cin, answer);
+    Gquestions.give(ID)->addAnswer(answer);
 }
 
 void printDQ()

@@ -120,17 +120,18 @@ void questionMenu()
         cout << "Question Menu\n";
         cout << "\t* Create Descriptive Question(1)\n"
              << "\t* Edit Descriptive Question(2)\n"
-             << "\t* List of Descriptive Questions with ID(3)\n"
-             << "\t* Print Descriptive Question(4)\n"
-             << "\t* Create FourChoice Question(5)\n"
-             << "\t* Edit FourChoice Question(6)\n"
-             << "\t* List of FourChoice Questions with ID(7)\n"
-             << "\t* Print FourChoice Question(8)\n"
-             << "\t* Add Tag to Question(9)\n"
-             << "\t* Publish a Question(10)\n"
-             << "\t* Unpublish a Question(11)\n"
-             << "\t* Delete a Question(12)\n"
-             << "\t* view All Questions(13)\n"
+             << "\t* Add Answer to Descriptive Question(3)\n"
+             << "\t* List of Descriptive Questions with ID(4)\n"
+             << "\t* Print Descriptive Question(5)\n"
+             << "\t* Create FourChoice Question(6)\n"
+             << "\t* Edit FourChoice Question(7)\n"
+             << "\t* List of FourChoice Questions with ID(8)\n"
+             << "\t* Print FourChoice Question(9)\n"
+             << "\t* Add Tag to Question(10)\n"
+             << "\t* Publish a Question(11)\n"
+             << "\t* Unpublish a Question(12)\n"
+             << "\t* Delete a Question(13)\n"
+             << "\t* view All Questions(14)\n"
              << "\t* Exit(0)\n";
         cin >> choice;
         cin.ignore();
@@ -143,36 +144,39 @@ void questionMenu()
             editDescriptiveQ();
             break;
         case 3:
-            printDQ();
+            addAnswertoDQ();
             break;
         case 4:
-            PrintOneDescriptive();
+            printDQ();
             break;
         case 5:
-            createFourChoiceQ();
+            PrintOneDescriptive();
             break;
         case 6:
-            editFourChoiceQ();
+            createFourChoiceQ();
             break;
         case 7:
-            printFQ();
+            editFourChoiceQ();
             break;
         case 8:
-            PrintOneFourChoice();
+            printFQ();
             break;
         case 9:
-            addTagtoQuestion();
+            PrintOneFourChoice();
             break;
         case 10:
-            publishQuestion();
+            addTagtoQuestion();
             break;
         case 11:
-            unPublishQuestion();
+            publishQuestion();
             break;
         case 12:
-            deleteQuestion();
+            unPublishQuestion();
             break;
         case 13:
+            deleteQuestion();
+            break;
+        case 14:
             printAllQ();
             break;
         }

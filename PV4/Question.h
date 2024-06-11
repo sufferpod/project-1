@@ -18,6 +18,7 @@ public:
     virtual void printAll() = 0;
     virtual Question *edit(string, DateTime, User, string, string, string, string, char) = 0;
     virtual Question *edit(string, DateTime, User) = 0;
+    virtual void addAnswer(string) = 0;
     void addTag(Tag *);
     bool pubBack();
     string TypeBack();

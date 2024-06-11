@@ -16,6 +16,7 @@ public:
     void printAll();
     Question *edit(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer) override;
     Question *edit(string, DateTime, User);
+    void addAnswer(string){};
     static FourChoice *create(string question, DateTime createdAt, User user, string A, string B, string C, string D, char answer);
 
 private:
