@@ -52,6 +52,8 @@ Question *FourChoice::edit(string question, DateTime createdAt, User user, strin
         this->C = C;
         this->D = D;
         this->answer = answer;
+        this->createdAt = createdAt;
+        this->user = user;
         return this;
     }
     else

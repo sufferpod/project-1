@@ -156,14 +156,14 @@ linkedList<Permission> Gpermissions;
 
 Permission *Permission::create(string ti)
 {
-    Permission *x = new Permission(ti);
     Node<Permission> *temp = Gpermissions.returnHead();
     while (temp != NULL)
     {
-        if (temp->data->title == x->title)
+        if (temp->data->title == ti)
             return NULL;
         temp = temp->next;
     }
+    Permission *x = new Permission(ti);
     Gpermissions.append(x);
     return x;
 }
@@ -535,6 +535,8 @@ Question *FourChoice::edit(string question, DateTime createdAt, User user, strin
         this->C = C;
         this->D = D;
         this->answer = answer;
+        this->createdAt = createdAt;
+        this->user = user;
         return this;
     }
     else

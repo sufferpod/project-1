@@ -33,13 +33,13 @@ Permission *Gpermissions[100] = {NULL};
 
 Permission *Permission::create(string ti)
 {
-    Permission *x = new Permission(ti);
     int i = 0;
     for (; Gpermissions[i] != NULL; i++)
     {
-        if (Gpermissions[i]->title == x->title)
+        if (Gpermissions[i]->title == ti)
             return NULL;
     }
+    Permission *x = new Permission(ti);
     Gpermissions[i] = x;
     return x;
 }
@@ -427,6 +427,8 @@ Question *FourChoice::edit(string question, DateTime createdAt, User user, strin
         this->C = C;
         this->D = D;
         this->answer = answer;
+        this->createdAt = createdAt;
+        this->user = user;
         return this;
     }
     else
