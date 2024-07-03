@@ -749,6 +749,7 @@ void unboot()
 {
     unLoadUsers();
     unLoadQuestions();
+    finalGdelete();
 }
 
 void printAllQ()
@@ -959,13 +960,6 @@ void clear()
 #endif
 }
 
-template <typename T>
-void finalDelete(T *globalArray[])
-{
-    for (int i = 0; globalArray[i] != NULL; i++)
-        delete globalArray[i];
-}
-
 void loadUsers()
 {
     Gusers[0] = new User("admin", "admin", "123456");
@@ -996,10 +990,6 @@ void loadUsers()
         for (int i = 0; perms[i] != NULL; i++)
         {
             Gusers[u]->addpermission(perms[i]);
-        }
-        for (int i = 0; perms[i] != NULL; i++)
-        {
-            delete perms[i];
         }
         u++;
     }
@@ -1107,6 +1097,13 @@ void unLoadQuestions()
         }
     }
     Qfile.close();
+}
+
+template <typename T>
+void finalDelete(T *globalArray[])
+{
+    for (int i = 0; globalArray[i] != NULL; i++)
+        delete globalArray[i];
 }
 
 void finalGdelete()

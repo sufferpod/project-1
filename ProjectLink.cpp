@@ -1117,10 +1117,6 @@ void loadUsers()
         {
             temp->data->addpermission(perms[i]);
         }
-        for (int i = 0; perms[i] != NULL; i++)
-        {
-            delete perms[i];
-        }
     }
     Auth::logout();
     Userfile.close();
